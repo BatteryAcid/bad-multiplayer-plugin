@@ -1,0 +1,113 @@
+[gd_scene load_steps=9 format=3 uid="uid://b2mxscehdfurt"]
+
+[ext_resource type="Script" uid="uid://dm2dorxlbrt2o" path="res://examples/basic_multiplayer/scripts/main.gd" id="1_ega1n"]
+[ext_resource type="PackedScene" uid="uid://dvt043rm64w77" path="res://examples/basic_multiplayer/sub-menus/host_options_menu.tscn" id="2_lbpge"]
+[ext_resource type="PackedScene" uid="uid://bxckjot076ujd" path="res://examples/basic_multiplayer/sub-menus/join_options_menu.tscn" id="3_u4l1l"]
+[ext_resource type="Texture2D" uid="uid://cbs7qlo0cign3" path="res://examples/assets/menu-bg.jpg" id="5_w30xx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vrara"]
+bg_color = Color(0, 0.654902, 0.878431, 0.176471)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u4l1l"]
+draw_center = false
+border_width_left = 20
+border_color = Color(0, 0.713726, 0.117647, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w30xx"]
+draw_center = false
+border_width_left = 20
+border_color = Color(0.854902, 0.501961, 0.133333, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ns1qx"]
+draw_center = false
+border_width_left = 20
+
+[node name="Main" type="Control" node_paths=PackedStringArray("main_options_panel", "host_btn", "join_btn")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ega1n")
+main_options_panel = NodePath("Panel")
+host_btn = NodePath("Panel/GameOptions/Host")
+join_btn = NodePath("Panel/GameOptions/Join")
+host_options_panel_scene = ExtResource("2_lbpge")
+join_options_panel_scene = ExtResource("3_u4l1l")
+
+[node name="MenuBg" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_w30xx")
+expand_mode = 3
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vrara")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+visible = false
+layout_mode = 0
+offset_left = 1158.0
+offset_top = 203.0
+offset_right = 1498.0
+offset_bottom = 339.0
+
+[node name="Host" type="LineEdit" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "localhost"
+placeholder_text = "Host IP"
+
+[node name="GameId" type="LineEdit" parent="Panel/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Game ID"
+
+[node name="HostGame" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Host"
+
+[node name="JoinGame" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Join"
+
+[node name="GameOptions" type="VBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_left = 724.0
+offset_top = 168.0
+offset_right = 1079.0
+offset_bottom = 779.0
+
+[node name="Host" type="Button" parent="Panel/GameOptions"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 68
+theme_override_styles/focus = SubResource("StyleBoxFlat_u4l1l")
+text = "HOST"
+flat = true
+
+[node name="Join" type="Button" parent="Panel/GameOptions"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 68
+theme_override_styles/focus = SubResource("StyleBoxFlat_w30xx")
+text = "JOIN"
+flat = true
+
+[node name="ExitGame" type="Button" parent="Panel/GameOptions"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 56
+theme_override_styles/focus = SubResource("StyleBoxFlat_ns1qx")
+text = "Exit"
+flat = true
+
+[connection signal="pressed" from="Panel/GameOptions/Host" to="." method="_on_host_game_pressed"]
+[connection signal="pressed" from="Panel/GameOptions/Join" to="." method="_on_join_game_pressed"]
+[connection signal="pressed" from="Panel/GameOptions/ExitGame" to="." method="_on_exit_game_pressed"]

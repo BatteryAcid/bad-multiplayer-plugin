@@ -1,0 +1,134 @@
+[gd_scene load_steps=8 format=3 uid="uid://dvt043rm64w77"]
+
+[ext_resource type="Script" uid="uid://bf6suyopj48ev" path="res://examples/basic_multiplayer/scripts/host_options_panel.gd" id="1_kv8fr"]
+[ext_resource type="Texture2D" uid="uid://ibsodydfvql2" path="res://examples/assets/orange-arrow.png" id="2_0xafr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ctr5"]
+bg_color = Color(0, 0.654902, 0.878431, 0.176471)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i5tia"]
+draw_center = false
+border_width_left = 20
+border_color = Color(0.247059, 0.913725, 0.823529, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0xafr"]
+draw_center = false
+border_width_left = 20
+border_color = Color(0.8, 0.184314, 0.145098, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0wnni"]
+draw_center = false
+border_width_left = 20
+border_color = Color(0, 0.298039, 0.984314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8h8i7"]
+draw_center = false
+border_width_left = 20
+border_color = Color(0.483503, 0.190398, 0.764336, 1)
+
+[node name="HostOptions" type="Panel" node_paths=PackedStringArray("noray_input_panel", "host_input")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0ctr5")
+script = ExtResource("1_kv8fr")
+noray_input_panel = NodePath("NoraySubMenu")
+host_input = NodePath("NoraySubMenu/Host")
+
+[node name="SelectedIcon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 0
+offset_left = 1092.0
+offset_top = 131.0
+offset_right = 1192.0
+offset_bottom = 209.0
+texture = ExtResource("2_0xafr")
+flip_h = true
+
+[node name="HostSubMenu" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 780.0
+offset_top = 130.0
+offset_right = 1080.0
+offset_bottom = 490.0
+theme_override_constants/separation = 20
+
+[node name="Local" type="Button" parent="HostSubMenu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxFlat_i5tia")
+text = "Local"
+flat = true
+
+[node name="Noray" type="Button" parent="HostSubMenu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxFlat_0xafr")
+text = "Noray"
+flat = true
+
+[node name="Steam" type="Button" parent="HostSubMenu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxFlat_0wnni")
+text = "Steam"
+flat = true
+
+[node name="Offline" type="Button" parent="HostSubMenu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxFlat_8h8i7")
+text = "Offline"
+flat = true
+
+[node name="NoraySubMenu" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 690.0
+offset_top = 550.0
+offset_right = 1190.0
+offset_bottom = 670.0
+theme_override_constants/separation = 10
+
+[node name="RichTextLabel" type="RichTextLabel" parent="NoraySubMenu"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 20
+text = "Enter Noray host "
+fit_content = true
+horizontal_alignment = 1
+
+[node name="Host" type="LineEdit" parent="NoraySubMenu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "localhost"
+placeholder_text = "Host IP"
+caret_blink = true
+
+[node name="ButtonOptions" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 780.0
+offset_top = 830.0
+offset_right = 1080.0
+offset_bottom = 1030.0
+theme_override_constants/separation = 20
+
+[node name="Start" type="Button" parent="ButtonOptions"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 56
+text = "START"
+
+[node name="Cancel" type="Button" parent="ButtonOptions"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Back"
+flat = true
+
+[connection signal="pressed" from="HostSubMenu/Local" to="." method="_on_local_pressed"]
+[connection signal="pressed" from="HostSubMenu/Noray" to="." method="_on_noray_pressed"]
+[connection signal="pressed" from="HostSubMenu/Steam" to="." method="_on_steam_pressed"]
+[connection signal="pressed" from="HostSubMenu/Offline" to="." method="_on_offline_pressed"]
+[connection signal="pressed" from="ButtonOptions/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="ButtonOptions/Cancel" to="." method="_on_cancel_pressed"]

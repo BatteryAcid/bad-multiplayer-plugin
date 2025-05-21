@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhkcoktgjeshu"]
+
+[ext_resource type="Script" uid="uid://cx3ohkouianfe" path="res://examples/basic_multiplayer/scripts/game.gd" id="1_yfwr0"]
+[ext_resource type="PackedScene" uid="uid://vwievsykbehv" path="res://examples/basic_multiplayer/player.tscn" id="3_pkb7b"]
+[ext_resource type="Script" uid="uid://ckqs44qprehog" path="res://examples/basic_multiplayer/scripts/player_spawner.gd" id="4_pkb7b"]
+
+[node name="Game" type="Node2D"]
+
+[node name="MainMenu" type="Button" parent="."]
+offset_left = 1787.0
+offset_top = 33.0
+offset_right = 1883.0
+offset_bottom = 64.0
+text = "Main Menu"
+script = ExtResource("1_yfwr0")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://vwievsykbehv")
+spawn_path = NodePath("../PlayerSpawnPoint")
+
+[node name="PlayerSpawnhandler" type="Node" parent="." node_paths=PackedStringArray("player_spawn_point")]
+script = ExtResource("4_pkb7b")
+player_scene = ExtResource("3_pkb7b")
+player_spawn_point = NodePath("../PlayerSpawnPoint")
+
+[node name="PlayerSpawnPoint" type="Node2D" parent="."]
+
+[connection signal="pressed" from="MainMenu" to="MainMenu" method="_on_main_menu_pressed"]
