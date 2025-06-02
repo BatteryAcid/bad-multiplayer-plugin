@@ -57,37 +57,33 @@ const AUTOLOADS = [
 	#}
 ]
 
-const TYPES: Array[Dictionary] = [
-	#{
-		#"name": "BADMultiplayerOptions",
-		#"base": "Control",
-		#"script": ROOT + "/bad_multiplayer_options.gd",
-		#"icon": "res://icon.svg"#ROOT + "/icons/rollback-synchronizer.svg"
-	#}
-	# TODO: don't think we'll need a custom Node, just make users override script,
-	#{
-		#"name": "BADPlayerSpawner",
-		#"base": "Node",
-		#"script": ROOT + "/bad_player_spawner.gd",
-		#"icon": "res://icon.svg"#ROOT + "/icons/rollback-synchronizer.svg"
-	#}
-]
+#const TYPES: Array[Dictionary] = [
+	##{
+		##"name": "BADMultiplayerOptions",
+		##"base": "Control",
+		##"script": ROOT + "/bad_multiplayer_options.gd",
+		##"icon": "res://icon.svg"#ROOT + "/icons/rollback-synchronizer.svg"
+	##}
+	## TODO: don't think we'll need a custom Node, just make users override script,
+	##{
+		##"name": "BADPlayerSpawner",
+		##"base": "Node",
+		##"script": ROOT + "/bad_player_spawner.gd",
+		##"icon": "res://icon.svg"#ROOT + "/icons/rollback-synchronizer.svg"
+	##}
+#]
 
 func _enter_tree() -> void:
 	print("BAD Multiplayer enter_tree...")
 	
 	for setting in SETTINGS:
 		add_setting(setting)
-	
-	# TODO: probably wont need this, using settings
-	#if not EditorInterface.is_plugin_enabled("netfox.noray"):
-		#print("Netfox's Noray NOT enabled")
-	
+
 	for autoload in AUTOLOADS:
 		add_autoload_singleton(autoload.name, autoload.path)
 
-	for type in TYPES:
-		add_custom_type(type.name, type.base, load(type.script), load(type.icon))
+	#for type in TYPES:
+		#add_custom_type(type.name, type.base, load(type.script), load(type.icon))
 
 func _exit_tree() -> void:
 	print("BAD Multiplayer exit_tree...")
@@ -98,14 +94,14 @@ func _exit_tree() -> void:
 	for autoload in AUTOLOADS:
 		remove_autoload_singleton(autoload.name)
 
-	for type in TYPES:
-		remove_custom_type(type.name)
+	#for type in TYPES:
+		#remove_custom_type(type.name)
 
 func add_setting(setting: Dictionary):
 	if ProjectSettings.has_setting(setting.name):
 		return
 
-	print("adding setting %s with value: %s " % [setting.name, setting.value])
+	# print("Adding setting %s with value: %s " % [setting.name, setting.value])
 	ProjectSettings.set_setting(setting.name, setting.value)
 	ProjectSettings.set_initial_value(setting.name, setting.value)
 	ProjectSettings.add_property_info({

@@ -11,29 +11,48 @@ extends Node
 enum AvailableNetworks {OFFLINE, ENET, NORAY, STEAM}
 const DEDICATED_SERVER_FEATURE_NAME = "dedicated_server"
 
-# TODO: not used yet, just dumping here until I figure it out
+const NORAY_PLUGIN_PATH = "res://addons/netfox.noray/plugin.cfg"
+
+# TODO: I'm not sure which way to set available networks for the game - plugin settings vs static config
+# I guess this depends on how much we gain by disabling a plugin at the settings level??
+# I think the Noray/Steam complementary addons should be disabled at the plugin level, that makes sense.
+# However, how to reflect that back into the code here... not sure...
+#
 # IMFUCKINGPORTANT: Accessing with get_setting must use the same default value as the initial setting defined in the plugin.
+# The get_setting will return null if you don't supply a default value that matches the default value in the setting configuration.
 var network_types: Dictionary[BADMultiplayerManager.AvailableNetworks, bool] = {
 	BADMultiplayerManager.AvailableNetworks.OFFLINE: ProjectSettings.get_setting(&"bad.multiplayer/networks/offline", true),
 	BADMultiplayerManager.AvailableNetworks.ENET: ProjectSettings.get_setting(&"bad.multiplayer/networks/enet", true),
-	BADMultiplayerManager.AvailableNetworks.NORAY: false,
+	BADMultiplayerManager.AvailableNetworks.NORAY: ProjectSettings.get_setting(&"bad.multiplayer/networks/noray", false),
 	BADMultiplayerManager.AvailableNetworks.STEAM: false,
 } 
-
-#var asdf: bool = ProjectSettings.get_setting(&"bad.multiplayer/networks/offline", true)
 
 ## Access major game scenes
 var main_menu_scene
 var game_scene
 var loading_scene
+# TODO: match over scene
 
-func _ready() -> void:
+func _enter_tree() -> void:
+	_check_and_set_available_networks()
+
+#func _ready() -> void:
+	#_check_and_set_available_networks()
+	
+func _check_and_set_available_networks():
 	print(network_types)
-	#print(asdf)
-	#print(ProjectSettings.get_setting("display/window/size/viewport_width"))
-	#print(ProjectSettings.get_setting("bad_multiplayer/networks/enet"))
-	
-	
+	var enabled_plugins = ProjectSettings.get_setting("editor_plugins/enabled")
+	print(enabled_plugins)
+	var noray_plugin = null
+	for enabled_plugin in enabled_plugins:
+		if enabled_plugin == NORAY_PLUGIN_PATH:
+			noray_plugin = enabled_plugin
+			break
+	if noray_plugin != null && network_types[BADMultiplayerManager.AvailableNetworks.NORAY]:
+		network_types[BADMultiplayerManager.AvailableNetworks.NORAY] = true
+	else:
+		network_types[BADMultiplayerManager.AvailableNetworks.NORAY] = false
+	print(network_types)	
 
 func host_game(network_configs: BADNetworkConnectionConfigs):
 	BADSceneManager.show_loading()

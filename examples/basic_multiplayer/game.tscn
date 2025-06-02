@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://ckqs44qprehog" path="res://examples/basic_multiplayer/scripts/player_spawner.gd" id="4_pkb7b"]
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_yfwr0")
 
 [node name="MainMenu" type="Button" parent="."]
 offset_left = 1787.0
@@ -12,7 +13,6 @@ offset_top = 33.0
 offset_right = 1883.0
 offset_bottom = 64.0
 text = "Main Menu"
-script = ExtResource("1_yfwr0")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://vwievsykbehv")
@@ -25,4 +25,4 @@ player_spawn_point = NodePath("../PlayerSpawnPoint")
 
 [node name="PlayerSpawnPoint" type="Node2D" parent="."]
 
-[connection signal="pressed" from="MainMenu" to="MainMenu" method="_on_main_menu_pressed"]
+[connection signal="pressed" from="MainMenu" to="." method="_on_main_menu_pressed"]

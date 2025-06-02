@@ -14,7 +14,7 @@ var active_game_id = ""
 var _available_networks: Dictionary = {
 	BADMultiplayerManager.AvailableNetworks.OFFLINE: {"script":"res://addons/bad.multiplayer/networks/offline_network.gd", "name": "OFFLINE_NETWORK"},
 	BADMultiplayerManager.AvailableNetworks.ENET: {"script":"res://addons/bad.multiplayer/networks/enet_network.gd", "name": "ENET_NETWORK"},
-	BADMultiplayerManager.AvailableNetworks.NORAY: {"script":"res://addons/bad.multiplayer/networks/noray_network.gd", "name": "NORAY_NETWORK"}
+	BADMultiplayerManager.AvailableNetworks.NORAY: {"script":"res://addons/bad.noray/networks/noray_network.gd", "name": "NORAY_NETWORK"}
 	# Add more networks here
 }
 
