@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 func _on_main_menu_pressed() -> void:
 	BADMultiplayerManager.exit_gameplay_load_main_menu()

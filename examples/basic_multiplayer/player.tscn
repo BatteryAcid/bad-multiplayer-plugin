@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://vwievsykbehv"]
+[gd_scene load_steps=9 format=3 uid="uid://vwievsykbehv"]
 
 [ext_resource type="Script" uid="uid://dycs4lc12ckgp" path="res://examples/basic_multiplayer/scripts/player.gd" id="1_g622m"]
 [ext_resource type="SpriteFrames" uid="uid://cjy0wkgo30py7" path="res://examples/assets/ship1_sprite_sheet.tres" id="2_av56a"]
 [ext_resource type="Script" uid="uid://4uk6buloiyrf" path="res://examples/basic_multiplayer/scripts/player_input.gd" id="2_vstow"]
+[ext_resource type="Script" uid="uid://bo3xli81hmp86" path="res://examples/basic_multiplayer/scripts/weapon.gd" id="4_vw0n0"]
+[ext_resource type="PackedScene" uid="uid://biet3r3oyhg57" path="res://examples/basic_multiplayer/projectile.tscn" id="5_em5vw"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g622m"]
 radius = 23.78
@@ -15,11 +17,23 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:selected_ship")
 properties/1/spawn = true
 properties/1/replication_mode = 0
+properties/2/path = NodePath(".:visible")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath(".:_health")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath(".:_player_dead")
+properties/4/spawn = true
+properties/4/replication_mode = 2
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_vstow"]
 properties/0/path = NodePath("PlayerInput:input_dir")
 properties/0/spawn = true
 properties/0/replication_mode = 1
+properties/1/path = NodePath("PlayerInput:is_weapon_firing")
+properties/1/spawn = false
+properties/1/replication_mode = 2
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_input", "player_sprite")]
 motion_mode = 1
@@ -44,3 +58,8 @@ script = ExtResource("2_vstow")
 [node name="InputSynchronizer" type="MultiplayerSynchronizer" parent="PlayerInput"]
 root_path = NodePath("../..")
 replication_config = SubResource("SceneReplicationConfig_vstow")
+
+[node name="Weapon" type="Node2D" parent="." node_paths=PackedStringArray("input")]
+script = ExtResource("4_vw0n0")
+input = NodePath("../PlayerInput")
+projectile = ExtResource("5_em5vw")

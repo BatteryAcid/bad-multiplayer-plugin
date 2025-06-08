@@ -20,6 +20,10 @@ extends Node
 
 var _players_in_game: Dictionary = {}
 
+func _enter_tree() -> void:
+	# Register the spawner with BAD multiplayer manager
+	BADMultiplayerManager._spawn_manager = self
+
 func _ready() -> void:
 	print("Bad Player Spawner Ready!")
 
@@ -99,11 +103,12 @@ func remove_player_from_game(network_id: int):
 func ready_player(network_id: int, player: Player):
 	if is_multiplayer_authority():
 		player.name = str(network_id)
-		player.global_transform = get_spawn_point(player.name)
+		player.global_transform = get_spawn_point(player.name) # TODO: should this use the badmp apis?
 		
 		# Player is always owned by the server
 		player.set_multiplayer_authority(1)
 
+# TODO: should this be just Transform? that way it could work for both 3D/2D?
 func get_spawn_point(player_name) -> Transform2D:
 	if player_name == "1": # For now, just check if you're the host, spawn on left side.
 		return Transform2D(0, Vector2(100, randi_range(50, 570)))
@@ -112,3 +117,10 @@ func get_spawn_point(player_name) -> Transform2D:
 
 func get_players_in_game():
 	return _players_in_game
+
+# Override for score keeping 
+func player_killed(player_name: String):
+	pass
+
+func player_respawned(player_name: String):
+	pass

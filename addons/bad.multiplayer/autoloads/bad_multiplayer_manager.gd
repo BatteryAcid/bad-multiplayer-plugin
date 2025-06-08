@@ -28,21 +28,21 @@ var network_types: Dictionary[BADMultiplayerManager.AvailableNetworks, bool] = {
 } 
 
 ## Access major game scenes
+# TODO: I dont think these are used yet.. or not sure what this was for...
 var main_menu_scene
 var game_scene
 var loading_scene
-# TODO: match over scene
+
+# Set this from the spawner, once the spawner enters the scene
+var _spawn_manager: BADPlayerSpawnHandler
 
 func _enter_tree() -> void:
 	_check_and_set_available_networks()
 
-#func _ready() -> void:
-	#_check_and_set_available_networks()
-	
 func _check_and_set_available_networks():
-	print(network_types)
 	var enabled_plugins = ProjectSettings.get_setting("editor_plugins/enabled")
-	print(enabled_plugins)
+
+	# TODO: probably refactor how this works to be more dynamic
 	var noray_plugin = null
 	for enabled_plugin in enabled_plugins:
 		if enabled_plugin == NORAY_PLUGIN_PATH:
@@ -52,7 +52,7 @@ func _check_and_set_available_networks():
 		network_types[BADMultiplayerManager.AvailableNetworks.NORAY] = true
 	else:
 		network_types[BADMultiplayerManager.AvailableNetworks.NORAY] = false
-	print(network_types)	
+	print("Enabled networks: %s" % network_types)	
 
 func host_game(network_configs: BADNetworkConnectionConfigs):
 	BADSceneManager.show_loading()
@@ -83,3 +83,20 @@ func quit_game():
 
 func _terminate_connection():
 	BADNetworkManager.terminate_connection()
+	
+# TODO: add to move to badmp
+func get_next_spawn_location(player_name: String):
+	if _spawn_manager:
+		return _spawn_manager.get_spawn_point(player_name)
+
+# TODO: add to move to badmp
+func player_killed(player_name: String):
+	print("Player killed: %s" % player_name)
+	if _spawn_manager:
+		_spawn_manager.player_killed(player_name)
+
+# TODO: add to move to badmp
+func player_respawned(player_name: String):
+	print("Player respawned: %s" % player_name)
+	if _spawn_manager:
+		_spawn_manager.player_respawned(player_name)

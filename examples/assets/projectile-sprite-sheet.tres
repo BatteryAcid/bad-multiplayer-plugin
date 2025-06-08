@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://csr4bgb8ovjt4"]
+
+[ext_resource type="Texture2D" uid="uid://nywwqhr03c56" path="res://examples/assets/projectile-sheet.png" id="1_ypx7e"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5xk5c"]
+atlas = ExtResource("1_ypx7e")
+region = Rect2(0, 0, 226, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_52eqk"]
+atlas = ExtResource("1_ypx7e")
+region = Rect2(226, 0, 226, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jmu0s"]
+atlas = ExtResource("1_ypx7e")
+region = Rect2(452, 0, 226, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8nojy"]
+atlas = ExtResource("1_ypx7e")
+region = Rect2(678, 0, 226, 103)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5xk5c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_52eqk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jmu0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8nojy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

@@ -57,6 +57,7 @@ func _on_cancel_pressed() -> void:
 func _on_start_pressed() -> void:
 	var configs = null
 	
+	# TODO: this isn't needed in it's current form, but I think it'll need a refactor
 	match _selected_network_type:
 		BADMultiplayerManager.AvailableNetworks.ENET:
 			# The default "localhost" for host is fine, but it's not used downstream	

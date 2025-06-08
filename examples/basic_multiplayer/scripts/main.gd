@@ -26,7 +26,8 @@ func _ready() -> void:
 	#print(ProjectSettings.get_setting("bad.multiplayer/networks/enet"))
 	#print(ProjectSettings.get_setting("bad.multiplayer/networks/offline"))
 	#
-	# TODO: figure out how to make this more dynamic
+	# TODO: Move this to badmp autoloader
+	# - could also provide default scenes? probably not, as you'd have to know how the scores work, etc
 	# Establish game scenes
 	BADMultiplayerManager.main_menu_scene = "res://examples/basic_multiplayer/main.tscn"
 	BADMultiplayerManager.game_scene = "res://examples/basic_multiplayer/game.tscn"
