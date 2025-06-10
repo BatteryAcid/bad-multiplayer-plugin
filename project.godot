@@ -25,7 +25,7 @@ BADAsync="*res://addons/bad.noray/autoloads/bad_async.gd"
 
 [bad.multiplayer]
 
-networks/noray=true
+networks/noray=false
 
 [display]
 
@@ -35,7 +35,7 @@ window/size/always_on_top=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/bad.multiplayer/plugin.cfg")
+enabled=PackedStringArray("res://addons/bad.multiplayer/plugin.cfg", "res://addons/bad.noray/plugin.cfg")
 
 [input]
 

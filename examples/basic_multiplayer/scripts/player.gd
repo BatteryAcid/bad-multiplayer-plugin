@@ -22,6 +22,10 @@ func _ready() -> void:
 	player_sprite.animation = selected_ship
 
 func _physics_process(_delta: float) -> void:
+	# TODO: move to bad api
+	if BADMultiplayerManager.is_game_over():
+		return
+	
 	var input_dir = player_input.input_dir
 	if input_dir:
 		velocity.x = input_dir.x * SPEED
@@ -58,6 +62,7 @@ func _register_hit(from: Player):
 		if _health <= 0 and not _player_dead:
 			print("Marking player dead...")
 			# TODO Move this to badmp 
+			# TODO: I think this can be like action based, where we uses "keys" to identify what the action was, maybe even have a action class
 			BADMultiplayerManager.player_killed(name)
 			_player_dead = true
 			visible = false

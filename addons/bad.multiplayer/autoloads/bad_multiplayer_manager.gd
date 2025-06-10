@@ -83,13 +83,19 @@ func quit_game():
 
 func _terminate_connection():
 	BADNetworkManager.terminate_connection()
-	
+
+# TODO: I think these should be added in a way to illustrate how to add custom functionality for the match style game...
+# Like maybe we have another script they override or maybe move this to the game scene
+# TODO: also need to consider if using states for game over/game play/loading etc...
 # TODO: add to move to badmp
+# TODO: not sure we should make this part of the api, as not all games have respawns
 func get_next_spawn_location(player_name: String):
 	if _spawn_manager:
 		return _spawn_manager.get_spawn_point(player_name)
 
 # TODO: add to move to badmp
+# TODO: this should be something more generic, like update score or something
+# TODO: create object to hold this info
 func player_killed(player_name: String):
 	print("Player killed: %s" % player_name)
 	if _spawn_manager:
@@ -100,3 +106,7 @@ func player_respawned(player_name: String):
 	print("Player respawned: %s" % player_name)
 	if _spawn_manager:
 		_spawn_manager.player_respawned(player_name)
+
+func is_game_over():
+	if _spawn_manager:
+		return _spawn_manager.game_over
