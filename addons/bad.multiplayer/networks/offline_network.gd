@@ -5,5 +5,5 @@ extends BADNetwork
 
 func create_server_peer(network_connection_configs: BADNetworkConnectionConfigs):
 	var offline_network_peer: OfflineMultiplayerPeer = OfflineMultiplayerPeer.new()
-	multiplayer.multiplayer_peer = offline_network_peer
+	get_tree().get_multiplayer().multiplayer_peer = offline_network_peer
 	return OK

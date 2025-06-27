@@ -17,20 +17,18 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+BADAsync="*res://addons/bad.noray/autoloads/bad_async.gd"
 BADMultiplayerManager="*res://addons/bad.multiplayer/autoloads/bad_multiplayer_manager.gd"
 BADNetworkManager="*res://addons/bad.multiplayer/autoloads/bad_network_manager.gd"
 BADNetworkEvents="*res://addons/bad.multiplayer/autoloads/bad_network_events.gd"
 BADSceneManager="*res://addons/bad.multiplayer/autoloads/bad_scene_manager.gd"
-BADAsync="*res://addons/bad.noray/autoloads/bad_async.gd"
-
-[bad.multiplayer]
-
-networks/noray=false
+BADMP="*res://addons/bad.multiplayer/autoloads/bad_mp.gd"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/resizable=false
 window/size/always_on_top=true
 
 [editor_plugins]

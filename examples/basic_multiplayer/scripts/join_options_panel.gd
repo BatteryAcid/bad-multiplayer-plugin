@@ -12,11 +12,24 @@ extends Node
 @export var noray_host_input: LineEdit
 @export var noray_game_id_input: LineEdit
 
-var _selected_network_type = BADMultiplayerManager.AvailableNetworks.ENET
+var _selected_network_type = BADMP.AvailableNetworks.ENET
 
 func _ready() -> void:
 	_set_btn_selection_icon($HostSubMenu/Server)
 	$HostSubMenu/Server.grab_focus()
+	
+	# TODO: this loop is why it may be better to use an object where we have additional fields like name/enabled
+	# TODO: of course this is terrible practice here, but I'm tired and need to get something working before signing off for the day...
+	for network_type in BADMP.AvailableNetworks.keys():
+		
+		var enabled = BADMP.available_networks[BADMP.AvailableNetworks[network_type]].enabled
+
+		if BADMP.AvailableNetworks[network_type] == BADMP.AvailableNetworks.ENET:
+			$HostSubMenu/Server.visible = enabled
+		elif BADMP.AvailableNetworks[network_type] == BADMP.AvailableNetworks.NORAY:
+			$HostSubMenu/Noray.visible = enabled
+		elif BADMP.AvailableNetworks[network_type] == BADMP.AvailableNetworks.STEAM:
+			$HostSubMenu/Steam.visible = enabled
 	
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("esc"):
@@ -26,19 +39,19 @@ func _on_local_pressed() -> void:
 	_set_btn_selection_icon($HostSubMenu/Server)
 	noray_input_panel.visible = false
 	server_input_panel.visible = true
-	_selected_network_type = BADMultiplayerManager.AvailableNetworks.ENET
+	_selected_network_type = BADMP.AvailableNetworks.ENET
 
 func _on_noray_pressed() -> void:
 	_set_btn_selection_icon($HostSubMenu/Noray)
 	noray_input_panel.visible = true
 	server_input_panel.visible = false
-	_selected_network_type = BADMultiplayerManager.AvailableNetworks.NORAY
+	_selected_network_type = BADMP.AvailableNetworks.NORAY
 
 func _on_steam_pressed() -> void:
 	_set_btn_selection_icon($HostSubMenu/Steam)
 	noray_input_panel.visible = false
 	server_input_panel.visible = false
-	_selected_network_type = BADMultiplayerManager.AvailableNetworks.STEAM
+	_selected_network_type = BADMP.AvailableNetworks.STEAM
 	# TODO
 
 func _on_cancel_pressed() -> void:
@@ -49,17 +62,17 @@ func _on_start_pressed() -> void:
 	var configs = null
 	
 	match _selected_network_type:
-		BADMultiplayerManager.AvailableNetworks.NORAY:
+		BADMP.AvailableNetworks.NORAY:
 			if noray_host_input && noray_host_input.text && noray_game_id_input && noray_game_id_input.text:
 				# port isn't needed here
 				configs = BADNetworkConnectionConfigs.new(_selected_network_type, noray_host_input.text, -1, noray_game_id_input.text)
-		BADMultiplayerManager.AvailableNetworks.ENET:
+		BADMP.AvailableNetworks.ENET:
 			if server_host_input && server_host_input.text && server_port_input && server_port_input.text:
 				configs = BADNetworkConnectionConfigs.new(_selected_network_type, server_host_input.text, server_port_input.text.to_int())
-		BADMultiplayerManager.AvailableNetworks.STEAM:
+		BADMP.AvailableNetworks.STEAM:
 			# TODO
 			print("Steam not supported yet")
-		BADMultiplayerManager.AvailableNetworks.OFFLINE:
+		BADMP.AvailableNetworks.OFFLINE:
 			configs = BADNetworkConnectionConfigs.new(_selected_network_type, "")
 
 	if configs != null:

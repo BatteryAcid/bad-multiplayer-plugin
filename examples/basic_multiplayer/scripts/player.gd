@@ -22,8 +22,7 @@ func _ready() -> void:
 	player_sprite.animation = selected_ship
 
 func _physics_process(_delta: float) -> void:
-	# TODO: move to bad api
-	if BADMultiplayerManager.is_game_over():
+	if BADMP.is_game_over():
 		return
 	
 	var input_dir = player_input.input_dir
@@ -41,7 +40,7 @@ func _physics_process(_delta: float) -> void:
 		_player_dead = false
 		reset_health()
 		visible = true
-		BADMultiplayerManager.player_respawned(name)
+		BADMP.player_respawned(name)
 
 	if _player_dead:
 		if _dead_timer < 1:
@@ -61,14 +60,12 @@ func _register_hit(from: Player):
 		
 		if _health <= 0 and not _player_dead:
 			print("Marking player dead...")
-			# TODO Move this to badmp 
 			# TODO: I think this can be like action based, where we uses "keys" to identify what the action was, maybe even have a action class
-			BADMultiplayerManager.player_killed(name)
+			BADMP.player_killed(name)
 			_player_dead = true
 			visible = false
 			velocity = Vector2.ZERO
-			# TODO: this needs to be a badmp call
-			_next_respawn_transform = BADMultiplayerManager.get_next_spawn_location(name)
+			_next_respawn_transform = BADMP.get_next_spawn_location(name)
 
 func reset_health():
 	if not is_multiplayer_authority():

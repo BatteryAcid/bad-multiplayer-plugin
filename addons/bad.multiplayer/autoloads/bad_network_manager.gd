@@ -10,14 +10,6 @@ var is_host = false
 var active_host_ip = ""
 var active_game_id = ""
 
-# TODO: move these to multiplayer_manager?
-var _available_networks: Dictionary = {
-	BADMultiplayerManager.AvailableNetworks.OFFLINE: {"script":"res://addons/bad.multiplayer/networks/offline_network.gd", "name": "OFFLINE_NETWORK"},
-	BADMultiplayerManager.AvailableNetworks.ENET: {"script":"res://addons/bad.multiplayer/networks/enet_network.gd", "name": "ENET_NETWORK"},
-	BADMultiplayerManager.AvailableNetworks.NORAY: {"script":"res://addons/bad.noray/networks/noray_network.gd", "name": "NORAY_NETWORK"}
-	# Add more networks here
-}
-
 var _active_network_node: BADNetwork
 
 # Establishes a host/server peer based on selected network
@@ -64,7 +56,7 @@ func join_game(network_configs: BADNetworkConnectionConfigs):
 
 	else:
 		print("Failed to create client peer...")
-		BADMultiplayerManager.exit_gameplay_load_main_menu()
+		BADMP.exit_gameplay_load_main_menu()
 
 func terminate_connection():
 	print("BADNetworkManager terminate_connection...")
@@ -72,7 +64,7 @@ func terminate_connection():
 	if not is_host:
 		# Handles the case where a client leaves game, terminates connection,
 		# not from a server-sourced disconnect.
-		BADNetworkEvents.enabled = false
+		BADMP.get_network_events_manager().enabled = false
 		_remove_client_signals()
 	else:
 		_remove_host_signals()
@@ -86,7 +78,7 @@ func terminate_connection():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func _instantiate_network_scene(selected_network_type: int) -> BADNetwork:
-	var selected_network = _available_networks[selected_network_type]
+	var selected_network = BADMP.available_networks[selected_network_type]
 	var selected_network_script = selected_network.script
 	
 	# Use load for dynamically loaded scripts

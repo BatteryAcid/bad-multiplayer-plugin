@@ -7,7 +7,6 @@ func create_server_peer(network_configs: BADNetworkConnectionConfigs):
 	var enet_network_peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
 	enet_network_peer.create_server(network_configs.host_port)
 	get_tree().get_multiplayer().multiplayer_peer = enet_network_peer
-	#await get_tree().create_timer(3).timeout # TODO: remove, for testing
 	return OK
 
 func create_client_peer(network_configs: BADNetworkConnectionConfigs):
@@ -23,4 +22,4 @@ func get_port():
 func terminate_connection():
 	if multiplayer != null && multiplayer.has_multiplayer_peer():
 		get_tree().get_multiplayer().multiplayer_peer = null
-		#TODO get_tree().get_multiplayer().multiplayer_peer = OfflineMultiplayerPeer.new()
+		#TODO consider using this instead: get_tree().get_multiplayer().multiplayer_peer = OfflineMultiplayerPeer.new()

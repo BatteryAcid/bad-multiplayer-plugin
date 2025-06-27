@@ -1,4 +1,4 @@
-class_name BADPlayerSpawnHandler
+class_name BADMatchHandler
 extends Node
 ## Attach this script to a Node in your game scene, to aid in spawning players
 ## based off network events. To be used along side a [MultiplayerSpawner].
@@ -16,34 +16,36 @@ extends Node
 @export var player_scene: PackedScene
 @export var player_spawn_point: Node
 
-#var game_play_node
-
 var _players_in_game: Dictionary = {}
 
 func _enter_tree() -> void:
-	# Register the spawner with BAD multiplayer manager
-	BADMultiplayerManager._spawn_manager = self
-
+	register_match_manager()
+	
+## Registers the match manager with BADMP once it's loaded in game. Override to
+## use a different match manager.
+func register_match_manager():
+	BADMP.set_match_manager(self)
+	
 func _ready() -> void:
-	print("Bad Player Spawner Ready!")
+	print("BADMatchHandler Ready!")
 
-	if BADNetworkManager.is_host:
+	if BADMP.get_network_manager().is_host:
 		# Only needed on host peer
-		BADNetworkEvents.on_server_start.connect(on_server_start)
-		BADNetworkEvents.on_server_stop.connect(on_server_stop)
-		BADNetworkEvents.on_peer_join.connect(on_peer_join)
-		BADNetworkEvents.on_peer_leave.connect(on_peer_leave)
+		BADMP.get_network_events_manager().on_server_start.connect(on_server_start)
+		BADMP.get_network_events_manager().on_server_stop.connect(on_server_stop)
+		BADMP.get_network_events_manager().on_peer_join.connect(on_peer_join)
+		BADMP.get_network_events_manager().on_peer_leave.connect(on_peer_leave)
 	else:
 		# Client peer signals
-		BADNetworkEvents.on_client_stop.connect(on_client_stop)
+		BADMP.get_network_events_manager().on_client_stop.connect(on_client_stop)
 	
 	# This prevents the on_server_start signals from getting fired before the game scene is loaded...
-	BADNetworkEvents.enabled = true
+	BADMP.get_network_events_manager().enabled = true
 
 func on_server_start():
 	print("Handle host start")
 	# Don't add a player to the game if host is a dedicated server
-	if not OS.has_feature(BADMultiplayerManager.DEDICATED_SERVER_FEATURE_NAME):
+	if not BADMP.is_dedicated_server():
 		add_player_to_game(1)
 
 func on_server_stop():
@@ -56,7 +58,7 @@ func on_server_stop():
 	# After host-stop signal is processed, disable BAD network events as we are
 	# no longer a host with an active connection. This is critical for the
 	# network events to correctly reset once a new connection is established
-	BADNetworkEvents.enabled = false
+	BADMP.get_network_events_manager().enabled = false
 
 # This will only be called when other peers connect, not when adding the 
 # host-player to the scene
@@ -73,8 +75,8 @@ func on_client_stop():
 	print("Client disconnected")
 	# After client disconnects, reset BAD network events. This is critical for
 	# the network events to correctly reset once a new connection is established
-	BADNetworkEvents.enabled = false
-	BADMultiplayerManager.exit_gameplay_load_main_menu()
+	BADMP.get_network_events_manager().enabled = false
+	BADMP.exit_gameplay_load_main_menu()
 	
 func add_player_to_game(network_id: int):
 	if is_multiplayer_authority():
@@ -108,8 +110,8 @@ func ready_player(network_id: int, player: Player):
 		# Player is always owned by the server
 		player.set_multiplayer_authority(1)
 
-# TODO: should this be just Transform? that way it could work for both 3D/2D?
-func get_spawn_point(player_name) -> Transform2D:
+## Override with custom spawn point logic
+func get_spawn_point(player_name) -> Variant:
 	if player_name == "1": # For now, just check if you're the host, spawn on left side.
 		return Transform2D(0, Vector2(100, randi_range(50, 570)))
 	else:
@@ -118,9 +120,10 @@ func get_spawn_point(player_name) -> Transform2D:
 func get_players_in_game():
 	return _players_in_game
 
-# Override for score keeping 
+## Override with logic when a player is killed, like scores, labels, etc.
 func player_killed(player_name: String):
 	pass
 
+## Override with logic that should run after a player is respawned
 func player_respawned(player_name: String):
 	pass

@@ -137,7 +137,7 @@ func _handle_connect(address: String, port: int) -> Error:
 			print("Handshake to %s:%s succeeded partially, attempting connection anyway" % [address, port])
 		else:
 			print("Client packet handshake failed %s" % err)
-			BADNetworkManager.exit_gameplay_load_main_menu()
+			BADMP.exit_gameplay_load_main_menu()
 			return err
 	else:
 			print("Handshake to %s:%s succeeded" % [address, port])
@@ -162,7 +162,7 @@ func _handle_connect(address: String, port: int) -> Error:
 		get_tree().get_multiplayer().multiplayer_peer = null
 		
 		# Connection failed, reset
-		BADNetworkManager.exit_gameplay_load_main_menu()
+		BADMP.exit_gameplay_load_main_menu()
 		
 		return ERR_CANT_CONNECT
 	else:

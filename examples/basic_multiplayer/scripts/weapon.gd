@@ -27,7 +27,6 @@ func _spawn_projectile():
 	
 	if not _parent_player.name == "1": # if not host
 		blaster_projectile.fire_dir = -1
-		#fire_out.offset.x = 5 TODO: remove, used for spawn animation
 
 	# We add these here and not at the root of the tree so that when we move away from the Game scene
 	# it will clean everything up

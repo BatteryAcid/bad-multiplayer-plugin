@@ -21,12 +21,6 @@ var SETTINGS = [
 		"value": true,
 		"type": TYPE_BOOL
 	}
-	#{
-		#"name": "BADMultiplayer/general/networks",
-		#"value": {"Offline": true, "ENet": true, "Noray": false, "Steam": false},
-		#"type": TYPE_DICTIONARY
-	#}
-	# TODO: can we disable BADNetworkEvents
 ]
 
 const AUTOLOADS = [
@@ -46,32 +40,11 @@ const AUTOLOADS = [
 		"name": "BADSceneManager",
 		"path": ROOT + "/autoloads/bad_scene_manager.gd"
 	},
-	#{
-		#"name": "Async",
-		#"path": ROOT + "/autoloads/bad_async.gd"
-	#}
-	#,
-	#{
-		#"name": "Noray",
-		#"path": ROOT + "/autoloads/bad_noray_mock.gd"
-	#}
+	{
+		"name": "BADMP",
+		"path": ROOT + "/autoloads/bad_mp.gd"
+	},
 ]
-
-#const TYPES: Array[Dictionary] = [
-	##{
-		##"name": "BADMultiplayerOptions",
-		##"base": "Control",
-		##"script": ROOT + "/bad_multiplayer_options.gd",
-		##"icon": "res://icon.svg"#ROOT + "/icons/rollback-synchronizer.svg"
-	##}
-	## TODO: don't think we'll need a custom Node, just make users override script,
-	##{
-		##"name": "BADPlayerSpawner",
-		##"base": "Node",
-		##"script": ROOT + "/bad_player_spawner.gd",
-		##"icon": "res://icon.svg"#ROOT + "/icons/rollback-synchronizer.svg"
-	##}
-#]
 
 func _enter_tree() -> void:
 	print("BAD Multiplayer enter_tree...")
@@ -82,9 +55,6 @@ func _enter_tree() -> void:
 	for autoload in AUTOLOADS:
 		add_autoload_singleton(autoload.name, autoload.path)
 
-	#for type in TYPES:
-		#add_custom_type(type.name, type.base, load(type.script), load(type.icon))
-
 func _exit_tree() -> void:
 	print("BAD Multiplayer exit_tree...")
 	if ProjectSettings.get_setting(&"bad.multiplayer/general/clear_settings", false):
@@ -93,9 +63,6 @@ func _exit_tree() -> void:
 			
 	for autoload in AUTOLOADS:
 		remove_autoload_singleton(autoload.name)
-
-	#for type in TYPES:
-		#remove_custom_type(type.name)
 
 func add_setting(setting: Dictionary):
 	if ProjectSettings.has_setting(setting.name):

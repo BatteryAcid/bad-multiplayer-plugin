@@ -1,8 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://bhkcoktgjeshu"]
+[gd_scene load_steps=11 format=3 uid="uid://bhkcoktgjeshu"]
 
 [ext_resource type="Script" uid="uid://cx3ohkouianfe" path="res://examples/basic_multiplayer/scripts/game.gd" id="1_yfwr0"]
+[ext_resource type="Texture2D" uid="uid://df7efyi7bsxau" path="res://examples/assets/game-bg/moon_earth.png" id="3_0xwsk"]
 [ext_resource type="PackedScene" uid="uid://vwievsykbehv" path="res://examples/basic_multiplayer/player.tscn" id="3_pkb7b"]
-[ext_resource type="Script" uid="uid://ckqs44qprehog" path="res://examples/basic_multiplayer/scripts/player_spawner.gd" id="4_pkb7b"]
+[ext_resource type="Texture2D" uid="uid://bcgvjh60h5wvo" path="res://examples/assets/game-bg/moon_sky.png" id="4_0xwsk"]
+[ext_resource type="Script" uid="uid://ckqs44qprehog" path="res://examples/basic_multiplayer/scripts/match_handler.gd" id="4_pkb7b"]
+[ext_resource type="Texture2D" uid="uid://cqpwlv3rs8xau" path="res://examples/assets/game-bg/moon_back.png" id="4_pnxpl"]
+[ext_resource type="Texture2D" uid="uid://cnjndvgv3si02" path="res://examples/assets/game-bg/moon_mid.png" id="5_bq2n6"]
+[ext_resource type="Texture2D" uid="uid://f4nf0gvbywbu" path="res://examples/assets/game-bg/moon_front.png" id="6_bl2ox"]
+[ext_resource type="Texture2D" uid="uid://d1nol07du2ags" path="res://examples/assets/game-bg/moon_floor.png" id="7_ujo6m"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_gg82m"]
 properties/0/path = NodePath("PlayerSpawnhandler:_player_scores")
@@ -137,6 +143,68 @@ text = "Main Menu"
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://vwievsykbehv")
 spawn_path = NodePath("../PlayerSpawnPoint")
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="Sky" type="Parallax2D" parent="Background"]
+repeat_size = Vector2(1400, 0)
+autoscroll = Vector2(3, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Sky"]
+position = Vector2(-26, -28)
+scale = Vector2(1.143, 1.143)
+texture = ExtResource("4_0xwsk")
+centered = false
+
+[node name="Planet" type="Parallax2D" parent="Background"]
+scroll_offset = Vector2(0, 2)
+repeat_size = Vector2(3000, 0)
+autoscroll = Vector2(-5, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Planet"]
+position = Vector2(-579, 2)
+scale = Vector2(1.95, 1.95)
+texture = ExtResource("3_0xwsk")
+centered = false
+
+[node name="Mountains" type="Parallax2D" parent="Background"]
+repeat_size = Vector2(3800, 0)
+autoscroll = Vector2(10, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Mountains"]
+position = Vector2(-25, 15)
+texture = ExtResource("4_pnxpl")
+centered = false
+
+[node name="MidGround" type="Parallax2D" parent="Background"]
+repeat_size = Vector2(3800, 0)
+autoscroll = Vector2(45, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/MidGround"]
+position = Vector2(-13, 130)
+texture = ExtResource("5_bq2n6")
+centered = false
+
+[node name="FrontGround" type="Parallax2D" parent="Background"]
+repeat_size = Vector2(1900, 0)
+autoscroll = Vector2(500, 0)
+repeat_times = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/FrontGround"]
+position = Vector2(1880, 599)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_bl2ox")
+centered = false
+
+[node name="Front" type="Parallax2D" parent="Background"]
+repeat_size = Vector2(4000, 0)
+autoscroll = Vector2(800, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/Front"]
+position = Vector2(1783, 586)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_ujo6m")
+centered = false
 
 [node name="PlayerSpawnhandler" type="Node" parent="." node_paths=PackedStringArray("score_player1", "score_player2", "title_label", "winner_label", "match_info", "play_again", "end_game", "player_spawn_point")]
 script = ExtResource("4_pkb7b")

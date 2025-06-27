@@ -22,7 +22,7 @@ func _physics_process(delta: float) -> void:
 
 	if _distance_left < 0:
 		queue_free()
-		print("Removing projectile")
+		# print("Removing projectile")
 
 	translate(Vector2(fire_dir * dist, 0))
 
