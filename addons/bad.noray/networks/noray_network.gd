@@ -2,6 +2,7 @@ class_name noray_network
 extends BADNetwork
 
 # TODO:
+# - need a way to set which connection type to use: NAT or Relay
 # - may have to disable NetworkEvents to not clash with BADNetworkEvents, this is only when netfox enabled
 # - At the bottom, when Netfox enabled, must stop time in terminate_connection, I think...
 # - Could have option to select NAT and/or Relay
@@ -38,7 +39,7 @@ func create_client_peer(network_configs: BADNetworkConnectionConfigs):
 		print("Client registration with Noray failed!")
 		return err
 
-	# TODO: just use relay when testing at home
+	# TODO: just use relay when testing
 	#Noray.connect_nat(game_id)
 	Noray.connect_relay(network_configs.game_id)
 	return err
@@ -59,7 +60,7 @@ func _register_with_noray(host_ip: String):
 	
 	# Capture game_id to display on host-peer for sharing with others
 	print("Noray oid/gameId: %s" % Noray.oid)
-	BADNetworkManager.active_game_id = Noray.oid
+	BADMP.set_game_id(BADMP.AvailableNetworks.NORAY, Noray.oid)
 
 	# Register remove address
 	err = await Noray.register_remote()

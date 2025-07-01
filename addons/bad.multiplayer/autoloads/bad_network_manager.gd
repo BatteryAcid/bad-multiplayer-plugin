@@ -1,14 +1,12 @@
 extends Node
-
-# Autoloader
-# Manages active network
+## [Autoloader]
+## Manages the active network
 
 signal server_peer_created
 signal client_peer_created
 
 var is_host = false
 var active_host_ip = ""
-var active_game_id = ""
 
 var _active_network_node: BADNetwork
 
@@ -37,8 +35,6 @@ func host_game(network_configs: BADNetworkConnectionConfigs):
 func join_game(network_configs: BADNetworkConnectionConfigs):
 	print("Joining game at host: %s, with game id: %s, and network type: %s" % [network_configs.host_ip, network_configs.game_id, network_configs.network_type])
 	is_host = false
-	
-	#TODO: still need to pass game_id back to noray network
 	
 	_active_network_node = _instantiate_network_scene(network_configs.network_type)
 	add_child(_active_network_node)

@@ -22,4 +22,6 @@ func get_port():
 func terminate_connection():
 	if multiplayer != null && multiplayer.has_multiplayer_peer():
 		get_tree().get_multiplayer().multiplayer_peer = null
-		#TODO consider using this instead: get_tree().get_multiplayer().multiplayer_peer = OfflineMultiplayerPeer.new()
+		# TODO consider using this instead: get_tree().get_multiplayer().multiplayer_peer = OfflineMultiplayerPeer.new()
+		# - Because this plugin has an "Offline" gameplay mode, using the built in OfflineMultiplayerPeer
+		# may conflict with we how start/stop connections. Deferring to using null until futher researched.

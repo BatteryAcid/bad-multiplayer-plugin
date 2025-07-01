@@ -105,7 +105,7 @@ func remove_player_from_game(network_id: int):
 func ready_player(network_id: int, player: Player):
 	if is_multiplayer_authority():
 		player.name = str(network_id)
-		player.global_transform = get_spawn_point(player.name) # TODO: should this use the badmp apis?
+		player.global_transform = get_spawn_point(player.name)
 		
 		# Player is always owned by the server
 		player.set_multiplayer_authority(1)

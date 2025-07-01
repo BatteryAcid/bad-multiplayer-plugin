@@ -1,6 +1,10 @@
 extends Node
-## Use this to access the BAD Multiplayer feature suite.
-## You can override the individual managers if necessary.
+## [Autoloader]
+## Contains the preferred way to access the BAD Multiplayer feature suite. You 
+## can override the individual managers if necessary.
+
+# TODO: consider func to dis/enable BADNetworkEvents
+# TODO: display game id when using Noray, etc
 
 var _multiplayer_manager = BADMultiplayerManager
 var _network_manager = BADNetworkManager
@@ -65,6 +69,11 @@ func exit_gameplay_load_main_menu():
 func is_dedicated_server():
 	return OS.has_feature("dedicated_server")
 
+func set_game_id(available_network: AvailableNetworks, game_id: String):
+	available_networks[available_network]["game_id"] = game_id
+
+func get_game_id(available_network: AvailableNetworks):
+	return available_networks[available_network].game_id
 
 ## Getters and setters
 

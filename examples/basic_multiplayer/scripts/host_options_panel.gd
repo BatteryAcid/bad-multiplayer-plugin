@@ -8,22 +8,19 @@ var _selected_network_type = BADMP.AvailableNetworks.ENET
 func _ready() -> void:
 	_set_btn_selection_icon($HostSubMenu/Local)
 	$HostSubMenu/Local.grab_focus()
-	
-	# TODO: this loop is why it may be better to use an object where we have additional fields like name/enabled
-	# TODO: of course this is terrible practice here, but I'm tired and need to get something working before signing off for the day...
+
 	for network_type in BADMP.AvailableNetworks.keys():
-		
 		var enabled = BADMP.available_networks[BADMP.AvailableNetworks[network_type]].enabled
 
-		if BADMP.AvailableNetworks[network_type] == BADMP.AvailableNetworks.ENET:
-			$HostSubMenu/Local.visible = enabled
-		elif BADMP.AvailableNetworks[network_type] == BADMP.AvailableNetworks.OFFLINE:
-			$HostSubMenu/Offline.visible = enabled
-		elif BADMP.AvailableNetworks[network_type] == BADMP.AvailableNetworks.NORAY:
-			$HostSubMenu/Noray.visible = enabled
-		elif BADMP.AvailableNetworks[network_type] == BADMP.AvailableNetworks.STEAM:
-			$HostSubMenu/Steam.visible = enabled
-
+		match BADMP.AvailableNetworks[network_type]:
+			BADMP.AvailableNetworks.ENET:
+				$HostSubMenu/Local.visible = enabled
+			BADMP.AvailableNetworks.OFFLINE:
+				$HostSubMenu/Offline.visible = enabled
+			BADMP.AvailableNetworks.NORAY:
+				$HostSubMenu/Noray.visible = enabled
+			BADMP.AvailableNetworks.STEAM:
+				$HostSubMenu/Steam.visible = enabled
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("esc"):
@@ -56,15 +53,13 @@ func _on_cancel_pressed() -> void:
 
 func _on_start_pressed() -> void:
 	var configs = null
-	
-	# TODO: this isn't needed in it's current form, but I think it'll need a refactor
+
 	match _selected_network_type:
 		BADMP.AvailableNetworks.ENET:
 			# The default "localhost" for host is fine, but it's not used downstream	
 			configs = BADNetworkConnectionConfigs.new(_selected_network_type, host_input.text)
 		BADMP.AvailableNetworks.NORAY:
 			if host_input && host_input.text:
-				# TODO: Port is supplied by the network impl script, could allow this to override that...
 				configs = BADNetworkConnectionConfigs.new(_selected_network_type, host_input.text)
 		BADMP.AvailableNetworks.STEAM:
 			# The default "localhost" for host is fine, but it's not used downstream

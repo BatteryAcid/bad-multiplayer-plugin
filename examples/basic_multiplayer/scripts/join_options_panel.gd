@@ -18,18 +18,16 @@ func _ready() -> void:
 	_set_btn_selection_icon($HostSubMenu/Server)
 	$HostSubMenu/Server.grab_focus()
 	
-	# TODO: this loop is why it may be better to use an object where we have additional fields like name/enabled
-	# TODO: of course this is terrible practice here, but I'm tired and need to get something working before signing off for the day...
 	for network_type in BADMP.AvailableNetworks.keys():
-		
 		var enabled = BADMP.available_networks[BADMP.AvailableNetworks[network_type]].enabled
 
-		if BADMP.AvailableNetworks[network_type] == BADMP.AvailableNetworks.ENET:
-			$HostSubMenu/Server.visible = enabled
-		elif BADMP.AvailableNetworks[network_type] == BADMP.AvailableNetworks.NORAY:
-			$HostSubMenu/Noray.visible = enabled
-		elif BADMP.AvailableNetworks[network_type] == BADMP.AvailableNetworks.STEAM:
-			$HostSubMenu/Steam.visible = enabled
+		match BADMP.AvailableNetworks[network_type]:
+			BADMP.AvailableNetworks.ENET:
+				$HostSubMenu/Server.visible = enabled
+			BADMP.AvailableNetworks.NORAY:
+				$HostSubMenu/Noray.visible = enabled
+			BADMP.AvailableNetworks.STEAM:
+				$HostSubMenu/Steam.visible = enabled
 	
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("esc"):
@@ -51,8 +49,8 @@ func _on_steam_pressed() -> void:
 	_set_btn_selection_icon($HostSubMenu/Steam)
 	noray_input_panel.visible = false
 	server_input_panel.visible = false
+	# TODO: add steam panel once supported
 	_selected_network_type = BADMP.AvailableNetworks.STEAM
-	# TODO
 
 func _on_cancel_pressed() -> void:
 	_selected_network_type = null
@@ -70,7 +68,7 @@ func _on_start_pressed() -> void:
 			if server_host_input && server_host_input.text && server_port_input && server_port_input.text:
 				configs = BADNetworkConnectionConfigs.new(_selected_network_type, server_host_input.text, server_port_input.text.to_int())
 		BADMP.AvailableNetworks.STEAM:
-			# TODO
+			# TODO: add steam config once supported
 			print("Steam not supported yet")
 		BADMP.AvailableNetworks.OFFLINE:
 			configs = BADNetworkConnectionConfigs.new(_selected_network_type, "")

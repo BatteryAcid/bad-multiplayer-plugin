@@ -1,6 +1,7 @@
 extends Node
-## This autoload listens for network events and rebroadcasts them in effort to
-## normalize these events regardless of network type.
+## [Autoloader]
+## Listens for network events and rebroadcasts them in effort to normalize these
+## events regardless of network type.
 ## 
 ## NOTE: If you want to use [OfflineMultiplayerPeer] for gameplay, you may need 
 ## to remove the check from [method is_server] below so that it doesn't return
