@@ -11,5 +11,64 @@ config_version=5
 [application]
 
 config/name="bad-multiplayer"
+run/main_scene="uid://b2mxscehdfurt"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
+boot_splash/image="uid://xminm05y6htl"
+config/icon="uid://b6k1xnxqpbfyl"
+
+[autoload]
+
+BADAsync="*res://addons/bad.noray/autoloads/bad_async.gd"
+BADMultiplayerManager="*res://addons/bad.multiplayer/autoloads/bad_multiplayer_manager.gd"
+BADNetworkManager="*res://addons/bad.multiplayer/autoloads/bad_network_manager.gd"
+BADNetworkEvents="*res://addons/bad.multiplayer/autoloads/bad_network_events.gd"
+BADSceneManager="*res://addons/bad.multiplayer/autoloads/bad_scene_manager.gd"
+BADMP="*res://addons/bad.multiplayer/autoloads/bad_mp.gd"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/resizable=false
+window/size/always_on_top=true
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/bad.multiplayer/plugin.cfg", "res://addons/bad.noray/plugin.cfg")
+
+[input]
+
+up={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":87,"key_label":0,"unicode":119,"location":0,"echo":false,"script":null)
+]
+}
+down={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":83,"key_label":0,"unicode":115,"location":0,"echo":false,"script":null)
+]
+}
+left={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":65,"key_label":0,"unicode":97,"location":0,"echo":false,"script":null)
+]
+}
+right={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":68,"key_label":0,"unicode":100,"location":0,"echo":false,"script":null)
+]
+}
+fire={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":32,"key_label":0,"unicode":32,"location":0,"echo":false,"script":null)
+]
+}
+esc={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+
+[{ "name": "bad.multiplayer]
+
+"networks/noray\", \"value\": false, \"type\": 1 }"=true

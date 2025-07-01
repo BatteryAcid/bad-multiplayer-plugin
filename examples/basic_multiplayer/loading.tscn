@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcabwpf2n6ded"]
+
+[ext_resource type="Script" uid="uid://dmyrw623n80hh" path="res://examples/basic_multiplayer/scripts/loading.gd" id="1_4tcfi"]
+[ext_resource type="Texture2D" uid="uid://bgfd5p0wy0rd4" path="res://examples/assets/loading.jpg" id="1_tbltf"]
+
+[node name="Loading" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4tcfi")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_tbltf")
+expand_mode = 2
+
+[node name="Loading" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 145.0
+offset_top = 900.0
+offset_right = 400.0
+offset_bottom = 975.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_y = 5
+theme_override_font_sizes/normal_font_size = 48
+text = "Loading..."
+
+[node name="MainMenu" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1792.0
+offset_top = 28.0
+offset_right = 1888.0
+offset_bottom = 59.0
+text = "Main Menu"
+flat = true
+
+[connection signal="pressed" from="MainMenu" to="." method="_on_exit_pressed"]
