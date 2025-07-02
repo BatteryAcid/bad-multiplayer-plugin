@@ -26,4 +26,5 @@ jobs:
         if: github.ref_type == 'tag'
         with:
           prerelease: true
+          name: 'bad.multiplayer-${{ github.ref_name }}.zip'
           files: 'addons/release.zip'
