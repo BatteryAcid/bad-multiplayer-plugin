@@ -12,6 +12,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@master
+      - name: Archive Release
+        uses: thedoctor0/zip-release@0.7.6
+        with:
+          type: 'zip'
+          filename: 'release.zip'
+          directory: 'addons'
+          path: 'bad.multiplayer'
       - name: Checkout
         uses: actions/checkout@v4
       - name: Release
@@ -19,4 +27,4 @@ jobs:
         if: github.ref_type == 'tag'
         with:
           prerelease: true
-          files: 'addons/bad.multiplayer/*'
+          files: 'release.zip'
