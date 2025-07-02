@@ -22,8 +22,6 @@ jobs:
     - name: Upload Release
       uses: ncipollo/release-action@v1.18.0
       with:
-        replacesArtifacts: true
-        removeArtifacts: true
         prerelease: true
         tag: '${{ github.ref_name }}'
         artifacts: 'bad.multiplayer-${{ github.ref_name }}.zip'
