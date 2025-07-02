@@ -3,21 +3,17 @@ name: Release
 on:
   push:
     tags:
-      - '*'
+      - 'v*.*.*'
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
-    - name: Upload Release
-      uses: ncipollo/release-action@v1.18.0
-      with:
-        prerelease: true
-        removeArtifacts: true
-        skipIfReleaseExists: true
-        artifacts: 'addons/bad.multiplayer'
-        tag: '${{ github.ref_name }}'
-        name: 'bad.multiplayer-${{ github.ref_name }}.zip'
-        token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: github.ref_type == 'tag'
+        with:
+          prerelease: true
+          files: 'addons/bad.multiplayer'
