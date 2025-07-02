@@ -23,6 +23,7 @@ jobs:
       uses: ncipollo/release-action@v1.18.0
       with:
         prerelease: true
+        removeArtifacts: true
         skipIfReleaseExists: true
         tag: '${{ github.ref_name }}'
         artifacts: 'bad.multiplayer-${{ github.ref_name }}.zip'
