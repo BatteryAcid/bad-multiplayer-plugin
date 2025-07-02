@@ -20,8 +20,7 @@ jobs:
           type: 'zip'
           command: 'mkdir -p addons'
           filename: 'bad.multiplayer-${{ github.ref_name }}.zip'
-          directory: 'addons'
-          path: 'bad.multiplayer'
+          path: 'addons/bad.multiplayer'
       - name: Release
         uses: softprops/action-gh-release@v2
         if: github.ref_type == 'tag'
