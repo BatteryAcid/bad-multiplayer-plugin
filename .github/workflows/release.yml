@@ -11,20 +11,12 @@ jobs:
     permissions:
       contents: write
     steps:
-    - uses: actions/checkout@master
-    - name: Archive Release
-      uses: thedoctor0/zip-release@0.7.6
-      with:
-        type: 'zip'
-        filename: 'bad.multiplayer-${{ github.ref_name }}.zip'
-        directory: 'addons'
-        path: 'bad.multiplayer'
     - name: Upload Release
       uses: ncipollo/release-action@v1.18.0
       with:
         prerelease: true
-        removeArtifacts: true
+        artifacts: 'addons/bad.multiplayer'
         skipIfReleaseExists: true
         tag: '${{ github.ref_name }}'
-        artifacts: 'bad.multiplayer-${{ github.ref_name }}.zip'
+        name: 'bad.multiplayer-${{ github.ref_name }}.zip'
         token: ${{ secrets.GITHUB_TOKEN }}
