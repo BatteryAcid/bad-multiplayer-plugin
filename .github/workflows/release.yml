@@ -16,7 +16,6 @@ jobs:
       with:
         prerelease: true
         artifacts: 'addons/bad.multiplayer'
-        skipIfReleaseExists: true
         tag: '${{ github.ref_name }}'
         name: 'bad.multiplayer-${{ github.ref_name }}.zip'
         token: ${{ secrets.GITHUB_TOKEN }}
