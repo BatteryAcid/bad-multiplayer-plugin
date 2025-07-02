@@ -18,7 +18,7 @@ jobs:
         uses: thedoctor0/zip-release@0.7.6
         with:
           type: 'zip'
-          filename: 'release.zip'
+          filename: 'bad.multiplayer-${{ github.ref_name }}.zip'
           directory: 'addons'
           path: 'bad.multiplayer'
       - name: Release
@@ -26,5 +26,4 @@ jobs:
         if: github.ref_type == 'tag'
         with:
           prerelease: true
-          name: 'bad.multiplayer-${{ github.ref_name }}.zip'
           files: 'addons/release.zip'
