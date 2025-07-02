@@ -1,6 +1,14 @@
-# BAD Multiplayer
+<img src="./icon.png" align="left" width="100px"/>
 
-Minimizes networking setup required for your Godot multiplayer game.
+### BAD Multiplayer
+Minimizes networking setup for your Godot multiplayer game.
+
+<hr>
+
+[![License](https://img.shields.io/github/license/BatteryAcid/bad-multiplayer-plugin)](https://github.com/BatteryAcid/bad-multiplayer-plugin/blob/main/LICENSE.md)
+[![GitHub Release](https://img.shields.io/github/v/release/BatteryAcid/bad-multiplayer-plugin)](https://github.com/BatteryAcid/bad-multiplayer-plugin/releases)
+[![Documentation](https://img.shields.io/badge/Docs-github.io-blue)](https://github.com/BatteryAcid/bad-multiplayer-plugin/wiki/Usage-Instructions)
+[![Discord](https://img.shields.io/discord/1253434107656933447?logo=discord&label=Discord)](https://discord.gg/SFFW32FUgm)
 
 
 # Features
