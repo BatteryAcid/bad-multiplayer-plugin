@@ -12,7 +12,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Archive Release
         uses: thedoctor0/zip-release@0.7.6
         with:
@@ -20,8 +21,6 @@ jobs:
           filename: 'release.zip'
           directory: 'addons'
           path: 'bad.multiplayer'
-      - name: Checkout
-        uses: actions/checkout@v4
       - name: Release
         uses: softprops/action-gh-release@v2
         if: github.ref_type == 'tag'
