@@ -17,3 +17,10 @@ jobs:
         filename: 'bad.multiplayer-${{ github.ref_name }}.zip'
         directory: 'addons'
         path: 'bad.multiplayer'
+    - name: Upload Release
+      uses: ncipollo/release-action@v1.18.0
+      with:
+        replacesArtifacts: true
+        prerelease: true
+        artifacts: 'bad.multiplayer-${{ github.ref_name }}.zip'
+        token: ${{ secrets.GITHUB_TOKEN }}
