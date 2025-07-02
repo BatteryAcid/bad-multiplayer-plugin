@@ -1,27 +1,28 @@
 # BAD Multiplayer
 
-The BAD Multiplayer plugin minimizes the networking setup required for your game,
-allowing you to focus on the game play logic.
+Minimizes networking setup required for your Godot multiplayer game.
+
 
 # Features
 
-- Match-style multplayer gameplay (highly configurable)
-- Dedicated server builds with ENet
-	- Connection using IP/DNS and Port through ENet
-- Client-Host P2P connections through Noray host given address and GameID (OpenID)
-	- Supports both NAT Punchthrough and Relay for Client-Host P2P
-- Signals/Events to handle common match functionalites:
-	- Spawning, player actions, spawn location, scene switching, exit game, menus, etc
-- Handles common networking boilierplate
+- Currently designed for match based multiplayer games, but is highly configurable.
+- Networking lifecycle signals and menu actions are exposed through a simple set of functions.
+- Facilitates common match actions like readying a player, spawn point retrieval, respawning, and player reset.
+- Build your menus around the networks you want to support.
+- Connect the buttons to the provided host and join game functions.
+
+## Supported networks
+- ENet (local and dedicated server)
+- Noray Client-host P2P (coming soon!)
 
 # Setup
 
-- TODO
-- Assumes game has the following scenes [MainMenu -> Loading -> Game]
+- Add this plugin to your Godot multiplayer project
+- TODO: Add link to asset library
 
-# Usage
+# Usage Instructions
 
-- TODO
+- https://github.com/BatteryAcid/bad-multiplayer-plugin/wiki/Usage-Instructions
 
 # Roadmap
 
