@@ -14,6 +14,6 @@ jobs:
       uses: thedoctor0/zip-release@0.7.6
       with:
         type: 'zip'
-        filename: 'bad.multiplayer-${{ github.ref }}.zip'
+        filename: 'bad.multiplayer-${{ github.ref_name }}.zip'
         directory: 'addons'
         path: 'bad.multiplayer'
