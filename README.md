@@ -1,7 +1,7 @@
 <img src="./icon.png" align="left" width="100px"/>
 
 ### BAD Multiplayer
-Minimizes networking setup for your Godot multiplayer game.
+Minimizes networking setup for your Godot multiplayer game. 
 
 <hr>
 
@@ -12,7 +12,7 @@ Minimizes networking setup for your Godot multiplayer game.
 
 
 # Features
-
+- Shared entry point regardless of network type.
 - Currently designed for match based multiplayer games, but is highly configurable.
 - Networking lifecycle signals and menu actions are exposed through a simple set of functions.
 - Facilitates common match actions like readying a player, spawn point retrieval, respawning, and player reset.
@@ -22,11 +22,11 @@ Minimizes networking setup for your Godot multiplayer game.
 ## Supported networks
 - ENet (local and dedicated server)
 - Noray Client-host P2P (coming soon!)
+- Offline 
 
 # Setup
 
-- Add this plugin to your Godot multiplayer project
-- TODO: Add link to asset library
+- [Add this plugin to your Godot multiplayer project](https://godotengine.org/asset-library/asset/4123)
 
 # Usage Instructions
 
