@@ -18,9 +18,9 @@ jobs:
         uses: thedoctor0/zip-release@0.7.6
         with:
           type: 'zip'
-          command: 'mkdir -p addons'
+          command: 'mkdir -p bad.multiplayer-${{ github.ref_name }}; cp -r addons/bad.multiplayer bad.multiplayer-${{ github.ref_name }}'
           filename: 'bad.multiplayer-${{ github.ref_name }}.zip'
-          path: 'addons/bad.multiplayer'
+          path: 'bad.multiplayer-${{ github.ref_name }}/addons/bad.multiplayer'
       - name: Release
         uses: softprops/action-gh-release@v2
         if: github.ref_type == 'tag'
