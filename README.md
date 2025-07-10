@@ -1,27 +1,36 @@
-# BAD Multiplayer
+<img src="./icon.png" align="left" width="100px"/>
 
-The BAD Multiplayer plugin minimizes the networking setup required for your game,
-allowing you to focus on the game play logic.
+### BAD Multiplayer
+Minimizes networking setup for your Godot multiplayer game. 
+
+<hr>
+
+[![License](https://img.shields.io/github/license/BatteryAcid/bad-multiplayer-plugin)](https://github.com/BatteryAcid/bad-multiplayer-plugin/blob/main/LICENSE.md)
+[![GitHub Release](https://img.shields.io/github/v/release/BatteryAcid/bad-multiplayer-plugin)](https://github.com/BatteryAcid/bad-multiplayer-plugin/releases)
+[![Documentation](https://img.shields.io/badge/Docs-github.io-blue)](https://github.com/BatteryAcid/bad-multiplayer-plugin/wiki/Usage-Instructions)
+[![Discord](https://img.shields.io/discord/1253434107656933447?logo=discord&label=Discord)](https://discord.gg/SFFW32FUgm)
+
 
 # Features
+- Shared entry point regardless of network type.
+- Currently designed for match based multiplayer games, but is highly configurable.
+- Networking lifecycle signals and menu actions are exposed through a simple set of functions.
+- Facilitates common match actions like readying a player, spawn point retrieval, respawning, and player reset.
+- Build your menus around the networks you want to support.
+- Connect the buttons to the provided host and join game functions.
 
-- Match-style multplayer gameplay (highly configurable)
-- Dedicated server builds with ENet
-	- Connection using IP/DNS and Port through ENet
-- Client-Host P2P connections through Noray host given address and GameID (OpenID)
-	- Supports both NAT Punchthrough and Relay for Client-Host P2P
-- Signals/Events to handle common match functionalites:
-	- Spawning, player actions, spawn location, scene switching, exit game, menus, etc
-- Handles common networking boilierplate
+## Supported networks
+- ENet (local and dedicated server)
+- Noray Client-host P2P (coming soon!)
+- Offline 
 
 # Setup
 
-- TODO
-- Assumes game has the following scenes [MainMenu -> Loading -> Game]
+- [Add this plugin to your Godot multiplayer project](https://godotengine.org/asset-library/asset/4123)
 
-# Usage
+# Usage Instructions
 
-- TODO
+- https://github.com/BatteryAcid/bad-multiplayer-plugin/wiki/Usage-Instructions
 
 # Roadmap
 

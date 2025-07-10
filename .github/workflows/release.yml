@@ -1,24 +1,29 @@
-name: Publish
+name: Release
 
 on:
   push:
     tags:
-      - '*'
+      - 'v*.*.*'
+
+permissions:
+  contents: write
 
 jobs:
   build:
-    name: Publish BAD Multiplayer addon artifacts
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v4
-    - name: Build
-      run: cargo build --release
-    - name: Upload binaries to release
-      uses: svenstaro/upload-release-action@v2
-      with:
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: addons/bad.multiplayer*
-        tag: ${{ github.ref }}
-        overwrite: true
-        file_glob: true
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Archive Release
+        uses: thedoctor0/zip-release@0.7.6
+        with:
+          type: 'zip'
+          command: 'mkdir -p bad.multiplayer-${{ github.ref_name }}/addons; cp -r addons/bad.multiplayer bad.multiplayer-${{ github.ref_name }}/addons'
+          filename: 'bad.multiplayer-${{ github.ref_name }}.zip'
+          path: 'bad.multiplayer-${{ github.ref_name }}/addons/bad.multiplayer'
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: github.ref_type == 'tag'
+        with:
+          prerelease: true
+          files: 'bad.multiplayer-${{ github.ref_name }}.zip'
