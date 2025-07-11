@@ -41,3 +41,7 @@ Minimizes networking setup for your Godot multiplayer game.
 - If you wish to replace one of the provided autoloaders, like `bad_multiplayer_manager`, be sure
 to override the public facing functions, like `exit_gameplay_load_main_menu`, as other autoloaders
 may call to them.
+
+# Attributions
+
+Portions of this plugin relied heavily on the work done by the folks over at [@foxssake](https://github.com/foxssake), creators of [Netfox](https://github.com/foxssake/netfox) & [Noray](https://github.com/foxssake/noray), and specifically @elementbound for his contributions to improving Godot networking and multiplayer! Thank you!
