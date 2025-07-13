@@ -1,3 +1,5 @@
+@tool
+@icon("res://addons/bad.multiplayer/match-action-handler-icon.svg")
 class_name BADMatchHandler
 extends Node
 ## Attach this script to a Node in your game scene, to aid in spawning players
@@ -15,6 +17,7 @@ extends Node
 
 @export var player_scene: PackedScene
 @export var player_spawn_point: Node
+@export var match_actions: Dictionary = {}
 
 var _players_in_game: Dictionary = {}
 
@@ -41,6 +44,8 @@ func _ready() -> void:
 	
 	# This prevents the on_server_start signals from getting fired before the game scene is loaded...
 	BADMP.get_network_events_manager().enabled = true
+	
+	_register_match_actions()
 
 func on_server_start():
 	print("Handle host start")
@@ -77,7 +82,8 @@ func on_client_stop():
 	# the network events to correctly reset once a new connection is established
 	BADMP.get_network_events_manager().enabled = false
 	BADMP.exit_gameplay_load_main_menu()
-	
+
+# TODO: should this be a match event?
 func add_player_to_game(network_id: int):
 	if is_multiplayer_authority():
 		print("Adding player to game: %s" % network_id)
@@ -92,6 +98,7 @@ func add_player_to_game(network_id: int):
 		else:
 			print("Warning! Attempted to add existing player to game: %s" % network_id)
 
+# TODO: should this be a match event?
 func remove_player_from_game(network_id: int):
 	if is_multiplayer_authority():
 		print("Removing player from game: %s" % network_id)
@@ -101,8 +108,9 @@ func remove_player_from_game(network_id: int):
 				player_to_remove.queue_free()
 				_players_in_game.erase(network_id)
 
+# TODO: should this be a match event?
 ## Setup initial or reload saved player properties
-func ready_player(network_id: int, player: Player):
+func ready_player(network_id: int, player: Variant):
 	if is_multiplayer_authority():
 		player.name = str(network_id)
 		player.global_transform = get_spawn_point(player.name)
@@ -111,19 +119,28 @@ func ready_player(network_id: int, player: Player):
 		player.set_multiplayer_authority(1)
 
 ## Override with custom spawn point logic
-func get_spawn_point(player_name) -> Variant:
-	if player_name == "1": # For now, just check if you're the host, spawn on left side.
-		return Transform2D(0, Vector2(100, randi_range(50, 570)))
-	else:
-		return Transform2D(0, Vector2(1000, randi_range(50, 570)))
+func get_spawn_point(data: Variant) -> Variant:
+	return
 
 func get_players_in_game():
 	return _players_in_game
 
-## Override with logic when a player is killed, like scores, labels, etc.
-func player_killed(player_name: String):
-	pass
-
 ## Override with logic that should run after a player is respawned
 func player_respawned(player_name: String):
 	pass
+
+## Establishes custom match actions added to the match action handler
+func _register_match_actions():
+	for child in find_children("*", "BADMatchAction", false):
+		match_actions[child.name] = child
+
+## Performs the action defined within the custom match action
+func perform_match_action(match_action_info: BADMatchActionInfo):
+	print("Performing match action: %s" % match_action_info.get_match_action_name())
+	
+	if not match_actions.has(match_action_info.get_match_action_name()):
+		print("Match action does not exist! %s" % match_action_info.get_match_action_name())
+		return
+		
+	var match_action = match_actions.get(match_action_info.get_match_action_name())
+	match_action.emit_action_signal(match_action_info)

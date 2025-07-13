@@ -18,7 +18,6 @@ config/icon="uid://b6k1xnxqpbfyl"
 
 [autoload]
 
-BADAsync="*res://addons/bad.noray/autoloads/bad_async.gd"
 BADMultiplayerManager="*res://addons/bad.multiplayer/autoloads/bad_multiplayer_manager.gd"
 BADNetworkManager="*res://addons/bad.multiplayer/autoloads/bad_network_manager.gd"
 BADNetworkEvents="*res://addons/bad.multiplayer/autoloads/bad_network_events.gd"
@@ -34,7 +33,7 @@ window/size/always_on_top=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/bad.multiplayer/plugin.cfg", "res://addons/bad.noray/plugin.cfg")
+enabled=PackedStringArray("res://addons/bad.multiplayer/plugin.cfg")
 
 [input]
 

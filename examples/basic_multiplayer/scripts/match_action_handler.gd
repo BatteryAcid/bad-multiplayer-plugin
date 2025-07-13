@@ -1,6 +1,8 @@
 extends BADMatchHandler
+# TODO: add icon
 
 # NOTE: Be careful if you need to override the _ready func, be sure to call to the super of it first!
+# TODO: consider using _notification instead of _ready for setup.
 
 @export var match_wins_for_gameover = 2
 @export var score_player1: RichTextLabel
@@ -16,7 +18,7 @@ var game_over = false
 var _player_scores: Array = [0,0]
 
 # Setup initial or reload saved player properties
-func ready_player(network_id: int, player: Player):
+func ready_player(network_id: int, player: Variant):
 	if is_multiplayer_authority():
 		player.name = str(network_id)
 		player.global_transform = get_spawn_point(player.name)
@@ -32,34 +34,6 @@ func get_spawn_point(player_name) -> Transform2D:
 		return Transform2D(0, Vector2(randi_range(75, 275), randi_range(50, 570)))
 	else:
 		return Transform2D(0, Vector2(randi_range(1400, 1600), randi_range(50, 570)))
-
-# TODO: name this to match action or something, pass in object class instead, with impl here being whatever they want?
-func player_killed(player_name: String):
-	# TODO: lock this out when game is over
-	if is_multiplayer_authority():
-		print("player killed: %s" % player_name)
-		
-		# Set the index to the opposite of the player killed, as that's who 
-		# gets the point
-		var player_score_index = 0
-		if player_name == "1":
-			player_score_index = 1
-		
-		_player_scores[player_score_index] = _player_scores[player_score_index] + 1
-		
-		if _player_scores[player_score_index] >= match_wins_for_gameover:
-			var winner = int(player_score_index) + 1
-			print("Game over: %s wins!" % winner)
-			var title_label = match_info.find_child("TitleLabel")
-			title_label.text = "Game Over"
-			var winner_label = match_info.find_child("WinnerLabel")
-			winner_label.text = "Player %s Wins!" % winner
-			
-			# TODO: need to set game over state to end game
-			# - need a way to reset everything, like a reset_game func
-			game_over = true
-
-		match_info.visible = true
 
 func player_respawned(player_name: String):
 	match_info.visible = false

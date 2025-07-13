@@ -33,30 +33,31 @@ func host_game(network_configs: BADNetworkConnectionConfigs):
 func join_game(network_configs: BADNetworkConnectionConfigs):
 	_multiplayer_manager.join_game(network_configs)
 
+## Match Actions Handling
+
+# TODO: game over and player respawn should be moved to match action
+func perform_match_action(match_action_info: BADMatchActionInfo):
+	print("Recieved match event to perform: %s" % match_action_info.get_match_action_name())
+	_match_handler.perform_match_action(match_action_info)
+
+# TODO: probably remove this in favor of using action
+func player_respawned(player_name: String):
+	print("Player respawned: %s" % player_name)
+	if _match_handler:
+		_match_handler.player_respawned(player_name)
+
 
 ## Utilities 
 
 ## Use to add supported game scenes
 func add_scene(scene_name: String, scene_path: String):
 	_scene_manager.add_enabled_game_scene(scene_name, scene_path)
-	
+
 func is_game_over():
 	if _match_handler:
 		return _match_handler.game_over
 
-# TODO: this should be something more generic, like update score or something
-# TODO: create object to hold this info
-# TODO: i think this should be player_state_changed, and pass in a dictionary that can switch/case whatever states
-func player_killed(player_name: String):
-	print("Player killed: %s" % player_name)
-	if _match_handler:
-		_match_handler.player_killed(player_name)
-
-func player_respawned(player_name: String):
-	print("Player respawned: %s" % player_name)
-	if _match_handler:
-		_match_handler.player_respawned(player_name)
-
+# TODO: should this be a match action
 # TODO: also need to consider if using states for game over/game play/loading etc...
 # TODO: not sure we should make this part of the api, as not all games have respawns
 func get_next_spawn_location(player_name: String):

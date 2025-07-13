@@ -60,8 +60,10 @@ func _register_hit(from: Player):
 		
 		if _health <= 0 and not _player_dead:
 			print("Marking player dead...")
-			# TODO: I think this can be like action based, where we uses "keys" to identify what the action was, maybe even have a action class
-			BADMP.player_killed(name)
+			
+			var action_info: PlayerKilledAction.PlayerKilledActionInfo = PlayerKilledAction.create_action_info(name)
+			BADMP.perform_match_action(action_info)
+			
 			_player_dead = true
 			visible = false
 			velocity = Vector2.ZERO

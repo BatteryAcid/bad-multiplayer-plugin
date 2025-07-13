@@ -1,5 +1,5 @@
-extends Resource
 class_name BADNetworkConnectionConfigs
+extends Resource
 
 @export var network_type: int = -1 
 @export var host_ip: String = ""
