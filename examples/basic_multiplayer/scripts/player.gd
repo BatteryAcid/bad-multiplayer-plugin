@@ -40,7 +40,10 @@ func _physics_process(_delta: float) -> void:
 		_player_dead = false
 		reset_health()
 		visible = true
-		BADMP.player_respawned(name)
+		
+		# This demonstrates where we don't need a custom MatchActionInfo, just
+		# set the name of the action to perform
+		BADMP.perform_match_action(BADMatchActionInfo.new(&"PlayerRespawnedAction"))
 
 	if _player_dead:
 		if _dead_timer < 1:
@@ -61,7 +64,9 @@ func _register_hit(from: Player):
 		if _health <= 0 and not _player_dead:
 			print("Marking player dead...")
 			
-			var action_info: PlayerKilledAction.PlayerKilledActionInfo = PlayerKilledAction.create_action_info(name)
+			# This demonstrates a custom MatchActionInfo class that passes 
+			# required data to perform the match action - in this case the player name
+			var action_info = PlayerKilledAction.PlayerKilledActionInfo.new(name)
 			BADMP.perform_match_action(action_info)
 			
 			_player_dead = true

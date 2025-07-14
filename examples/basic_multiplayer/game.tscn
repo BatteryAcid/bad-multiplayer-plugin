@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bhkcoktgjeshu"]
+[gd_scene load_steps=13 format=3 uid="uid://bhkcoktgjeshu"]
 
 [ext_resource type="Script" uid="uid://cx3ohkouianfe" path="res://examples/basic_multiplayer/scripts/game.gd" id="1_yfwr0"]
 [ext_resource type="Texture2D" uid="uid://df7efyi7bsxau" path="res://examples/assets/game-bg/moon_earth.png" id="3_0xwsk"]
@@ -10,21 +10,22 @@
 [ext_resource type="Texture2D" uid="uid://f4nf0gvbywbu" path="res://examples/assets/game-bg/moon_front.png" id="6_bl2ox"]
 [ext_resource type="Texture2D" uid="uid://d1nol07du2ags" path="res://examples/assets/game-bg/moon_floor.png" id="7_ujo6m"]
 [ext_resource type="Script" uid="uid://dyduwnd25sedd" path="res://examples/basic_multiplayer/scripts/match_actions/player_killed_action.gd" id="10_w3cno"]
+[ext_resource type="Script" uid="uid://dnef4mqet11o" path="res://examples/basic_multiplayer/scripts/match_actions/player_respawned_action.gd" id="11_hbe2l"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_gg82m"]
-properties/0/path = NodePath("MatchHandler:_player_scores")
+properties/0/path = NodePath("MatchActionHandler:game_over")
 properties/0/spawn = true
 properties/0/replication_mode = 2
-properties/1/path = NodePath("MatchHandler:match_info:visible")
+properties/1/path = NodePath("MatchActionHandler:_player_scores")
 properties/1/spawn = true
 properties/1/replication_mode = 2
-properties/2/path = NodePath("MatchHandler:title_label:text")
+properties/2/path = NodePath("MatchActionHandler:match_info:visible")
 properties/2/spawn = true
 properties/2/replication_mode = 2
-properties/3/path = NodePath("MatchHandler:winner_label:text")
+properties/3/path = NodePath("MatchActionHandler:title_label:text")
 properties/3/spawn = true
 properties/3/replication_mode = 2
-properties/4/path = NodePath("MatchHandler:game_over")
+properties/4/path = NodePath("MatchActionHandler:winner_label:text")
 properties/4/spawn = true
 properties/4/replication_mode = 2
 
@@ -221,6 +222,10 @@ player_spawn_point = NodePath("../PlayerSpawnPoint")
 
 [node name="PlayerKilledAction" type="Node" parent="MatchActionHandler"]
 script = ExtResource("10_w3cno")
+metadata/_custom_type_script = "uid://d0i5xcmdvp6a1"
+
+[node name="PlayerRespawnedAction" type="Node" parent="MatchActionHandler"]
+script = ExtResource("11_hbe2l")
 metadata/_custom_type_script = "uid://d0i5xcmdvp6a1"
 
 [node name="PlayerSpawnPoint" type="Node2D" parent="."]

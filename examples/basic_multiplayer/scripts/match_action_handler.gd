@@ -1,5 +1,4 @@
 extends BADMatchHandler
-# TODO: add icon
 
 # NOTE: Be careful if you need to override the _ready func, be sure to call to the super of it first!
 # TODO: consider using _notification instead of _ready for setup.
@@ -34,9 +33,6 @@ func get_spawn_point(player_name) -> Transform2D:
 		return Transform2D(0, Vector2(randi_range(75, 275), randi_range(50, 570)))
 	else:
 		return Transform2D(0, Vector2(randi_range(1400, 1600), randi_range(50, 570)))
-
-func player_respawned(player_name: String):
-	match_info.visible = false
 
 func _physics_process(delta: float) -> void:
 	if match_info.visible:

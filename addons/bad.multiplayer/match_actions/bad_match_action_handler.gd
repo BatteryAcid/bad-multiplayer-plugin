@@ -1,5 +1,5 @@
 @tool
-@icon("res://addons/bad.multiplayer/match-action-handler-icon.svg")
+@icon("res://addons/bad.multiplayer/icons/match-action-handler-icon.svg")
 class_name BADMatchHandler
 extends Node
 ## Attach this script to a Node in your game scene, to aid in spawning players
@@ -125,18 +125,15 @@ func get_spawn_point(data: Variant) -> Variant:
 func get_players_in_game():
 	return _players_in_game
 
-## Override with logic that should run after a player is respawned
-func player_respawned(player_name: String):
-	pass
-
 ## Establishes custom match actions added to the match action handler
 func _register_match_actions():
 	for child in find_children("*", "BADMatchAction", false):
+		# print("Registering match action: %s" % child.name)
 		match_actions[child.name] = child
 
 ## Performs the action defined within the custom match action
 func perform_match_action(match_action_info: BADMatchActionInfo):
-	print("Performing match action: %s" % match_action_info.get_match_action_name())
+	# print("Performing match action: %s" % match_action_info.get_match_action_name())
 	
 	if not match_actions.has(match_action_info.get_match_action_name()):
 		print("Match action does not exist! %s" % match_action_info.get_match_action_name())

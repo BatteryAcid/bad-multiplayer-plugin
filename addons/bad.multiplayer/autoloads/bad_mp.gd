@@ -35,17 +35,10 @@ func join_game(network_configs: BADNetworkConnectionConfigs):
 
 ## Match Actions Handling
 
-# TODO: game over and player respawn should be moved to match action
+# TODO: game over should be moved to match action
 func perform_match_action(match_action_info: BADMatchActionInfo):
 	print("Recieved match event to perform: %s" % match_action_info.get_match_action_name())
 	_match_handler.perform_match_action(match_action_info)
-
-# TODO: probably remove this in favor of using action
-func player_respawned(player_name: String):
-	print("Player respawned: %s" % player_name)
-	if _match_handler:
-		_match_handler.player_respawned(player_name)
-
 
 ## Utilities 
 

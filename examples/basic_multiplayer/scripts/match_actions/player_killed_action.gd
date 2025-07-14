@@ -32,8 +32,6 @@ func perform(match_action_info: BADMatchActionInfo):
 
 		get_match_action_handler().match_info.visible = true
 
-static func create_action_info(player_name: String):
-	return PlayerKilledActionInfo.new(player_name)
 
 ## Used to hold information specific to containing-parent action
 class PlayerKilledActionInfo extends BADMatchActionInfo:
@@ -41,7 +39,5 @@ class PlayerKilledActionInfo extends BADMatchActionInfo:
 	var player_name: String
 	
 	func _init(player_name_: String) -> void:
+		super(&"PlayerKilledAction")
 		player_name = player_name_
-
-	func get_match_action_name() -> StringName:
-		return &"PlayerKilledAction"

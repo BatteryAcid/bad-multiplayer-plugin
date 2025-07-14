@@ -1,9 +1,7 @@
 @tool
-@icon("res://addons/bad.multiplayer/match-action-icon.svg")
+@icon("res://addons/bad.multiplayer/icons/match-action-icon.svg")
 class_name BADMatchAction
 extends Node
-
-# TODO: add icon
 
 # Reference to match action handler which should be the parent to custom actions
 @onready var _match_action_handler = get_parent()
@@ -12,7 +10,8 @@ extends Node
 func _ready() -> void:
 	_register_signal_for_action()
 
-## Registers custom action signal
+## Registers custom match action signal to the [method perform] function, that 
+## must be overridden with the specific logic needed for the action
 func _register_signal_for_action():
 	get_action_signal().connect(perform)
 

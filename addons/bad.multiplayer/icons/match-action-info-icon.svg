@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="a" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 100 100">
+  <!-- Generator: Adobe Illustrator 29.6.1, SVG Export Plug-In . SVG Version: 2.1.1 Build 9)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #8da5f3;
+      }
+
+      .st1 {
+        fill: #fc7f7f;
+      }
+    </style>
+  </defs>
+  <rect class="st0" x="67.87" y="43.85" width="25.67" height="49.18"/>
+  <circle class="st0" cx="80.7" cy="20.83" r="13.13"/>
+  <polygon class="st1" points="64.89 38.87 62.95 38.14 65.16 0 40.6 29.8 4.44 16.27 25.42 48.2 .87 77.99 38.39 67.94 59.37 99.87 61.59 61.72 64.89 60.84 64.89 38.87"/>
+</svg>
