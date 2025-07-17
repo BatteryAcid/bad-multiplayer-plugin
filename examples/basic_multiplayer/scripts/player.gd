@@ -59,7 +59,7 @@ func _register_hit(from: Player):
 	if is_multiplayer_authority():
 		if _health > 0:
 			_health -= 1
-			print("health %s" % _health)
+			print("Player %s health %s" % [name, _health])
 		
 		if _health <= 0 and not _player_dead:
 			print("Marking player dead...")

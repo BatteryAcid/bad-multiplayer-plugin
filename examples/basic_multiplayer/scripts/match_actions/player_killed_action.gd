@@ -3,12 +3,14 @@ extends BADMatchAction
 
 signal player_killed
 
+@onready var _match_handler = get_match_action_handler()	
+
 func get_action_signal():
 	return player_killed
 
 func perform(match_action_info: BADMatchActionInfo):
 	if is_multiplayer_authority():
-		print("player killed: %s" % (match_action_info as PlayerKilledActionInfo).player_name)
+		print("Player killed: %s" % (match_action_info as PlayerKilledActionInfo).player_name)
 		
 		# Set the index to the opposite of the player killed, as that's who 
 		# gets the point
@@ -16,21 +18,19 @@ func perform(match_action_info: BADMatchActionInfo):
 		if match_action_info.player_name == "1":
 			player_score_index = 1
 		
-		get_match_action_handler()._player_scores[player_score_index] = get_match_action_handler()._player_scores[player_score_index] + 1
+		_match_handler._player_scores[player_score_index] = _match_handler._player_scores[player_score_index] + 1
 		
-		if get_match_action_handler()._player_scores[player_score_index] >= get_match_action_handler().match_wins_for_gameover:
+		if _match_handler._player_scores[player_score_index] >= _match_handler.match_wins_for_gameover:
 			var winner = int(player_score_index) + 1
 			print("Game over: %s wins!" % winner)
-			var title_label = get_match_action_handler().match_info.find_child("TitleLabel")
+			var title_label = _match_handler.match_info.find_child("TitleLabel")
 			title_label.text = "Game Over"
-			var winner_label = get_match_action_handler().match_info.find_child("WinnerLabel")
+			var winner_label = _match_handler.match_info.find_child("WinnerLabel")
 			winner_label.text = "Player %s Wins!" % winner
 			
-			# TODO: need to set game over state to end game
-			# - need a way to reset everything, like a reset_game func
-			get_match_action_handler().game_over = true
+			_match_handler.set_match_state(_match_handler.GAME_OVER_STATE)
 
-		get_match_action_handler().match_info.visible = true
+		_match_handler.match_info.visible = true
 
 
 ## Used to hold information specific to containing-parent action

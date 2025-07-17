@@ -15,11 +15,15 @@ extends Node
 ## custom player properties (player name, spawn location, etc) for when your 
 ## player spawns in game. Otherwise, override any mix of functions.
 
+const GAME_PLAY_STATE = "game_play"
+const GAME_OVER_STATE = "game_over"
+
 @export var player_scene: PackedScene
 @export var player_spawn_point: Node
 @export var match_actions: Dictionary = {}
 
 var _players_in_game: Dictionary = {}
+var _match_state: String = ""
 
 func _enter_tree() -> void:
 	register_match_manager()
@@ -84,6 +88,8 @@ func on_client_stop():
 	BADMP.exit_gameplay_load_main_menu()
 
 # TODO: should this be a match event?
+# - Right now I'm thinking no, since it's likely these 3 actions will happen in
+# every match-style game. Match events are for those specific to a game.
 func add_player_to_game(network_id: int):
 	if is_multiplayer_authority():
 		print("Adding player to game: %s" % network_id)
@@ -118,12 +124,27 @@ func ready_player(network_id: int, player: Variant):
 		# Player is always owned by the server
 		player.set_multiplayer_authority(1)
 
+# TODO: should this be a match event?
 ## Override with custom spawn point logic
 func get_spawn_point(data: Variant) -> Variant:
 	return
 
 func get_players_in_game():
 	return _players_in_game
+
+
+## Match State
+
+func get_match_state():
+	return _match_state
+
+func set_match_state(state_: String):
+	if state_:
+		_match_state = state_
+	
+func is_match_state_active(state_to_check: String) -> bool:
+	return state_to_check == _match_state
+
 
 ## Establishes custom match actions added to the match action handler
 func _register_match_actions():

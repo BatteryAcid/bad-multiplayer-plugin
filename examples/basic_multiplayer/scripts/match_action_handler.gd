@@ -1,4 +1,6 @@
 extends BADMatchHandler
+## Example usage of (overriding) BADMatchHandler. Override functions to suit
+## the needs of your game. Also good place to connect in game menu signals.
 
 # NOTE: Be careful if you need to override the _ready func, be sure to call to the super of it first!
 # TODO: consider using _notification instead of _ready for setup.
@@ -11,8 +13,6 @@ extends BADMatchHandler
 @export var match_info: Control
 @export var play_again: Button
 @export var end_game: Button
-
-var game_over = false
 
 var _player_scores: Array = [0,0]
 
@@ -40,14 +40,19 @@ func _physics_process(delta: float) -> void:
 		score_player1.text = str(_player_scores[0])
 		score_player2.text = str(_player_scores[1])
 	
-	if game_over && multiplayer.has_multiplayer_peer() && is_multiplayer_authority():
+	if BADMP.is_game_over() && multiplayer.has_multiplayer_peer() && is_multiplayer_authority():
 		play_again.visible = true
 		end_game.visible = true
 
 func _on_play_again_pressed() -> void:
-	print("play again")
-	# TODO: move this to some reset function
-	# - should this be part of the bad api?
+	print("Play again")
+	_reset_match()
+
+func _on_end_game_pressed() -> void:
+	print("End game")
+	BADMP.exit_gameplay_load_main_menu()
+	
+func _reset_match():
 	_player_scores = [0,0]
 	title_label.text = "Scores"
 	winner_label.text = ""
@@ -56,8 +61,4 @@ func _on_play_again_pressed() -> void:
 	play_again.visible = false
 	end_game.visible = false
 	match_info.visible = false
-	game_over = false
-
-func _on_end_game_pressed() -> void:
-	print("end game")
-	BADMP.exit_gameplay_load_main_menu()
+	set_match_state(GAME_PLAY_STATE)
