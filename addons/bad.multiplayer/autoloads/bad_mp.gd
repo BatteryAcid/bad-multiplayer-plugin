@@ -10,7 +10,7 @@ var _multiplayer_manager = BADMultiplayerManager
 var _network_manager = BADNetworkManager
 var _scene_manager = BADSceneManager
 var _network_events_manager = BADNetworkEvents
-var _match_handler
+var _match_action_handler
 
 enum AvailableNetworks {OFFLINE, ENET, NORAY, STEAM}
 
@@ -34,34 +34,36 @@ func join_game(network_configs: BADNetworkConnectionConfigs):
 	_multiplayer_manager.join_game(network_configs)
 
 
+## Match Actions Handling
+
+func perform_match_action(match_action_info: BADMatchActionInfo):
+	print("Recieved match event to perform: %s" % match_action_info.get_match_action_name())
+	_match_action_handler.perform_match_action(match_action_info)
+
+
 ## Utilities 
 
 ## Use to add supported game scenes
 func add_scene(scene_name: String, scene_path: String):
 	_scene_manager.add_enabled_game_scene(scene_name, scene_path)
-	
+
+func get_match_state():
+	if _match_action_handler:
+		return _match_action_handler.get_match_state()
+	else:
+		print("Unable to retrieve match state, no match action handler provided.")
+
 func is_game_over():
-	if _match_handler:
-		return _match_handler.game_over
+	if _match_action_handler:
+		return _match_action_handler.is_match_state_active(_match_action_handler.GAME_OVER_STATE)
+	return false
 
-# TODO: this should be something more generic, like update score or something
-# TODO: create object to hold this info
-# TODO: i think this should be player_state_changed, and pass in a dictionary that can switch/case whatever states
-func player_killed(player_name: String):
-	print("Player killed: %s" % player_name)
-	if _match_handler:
-		_match_handler.player_killed(player_name)
-
-func player_respawned(player_name: String):
-	print("Player respawned: %s" % player_name)
-	if _match_handler:
-		_match_handler.player_respawned(player_name)
-
-# TODO: also need to consider if using states for game over/game play/loading etc...
+# TODO: should this be a match action? Not sure, this should be common in match
+# games, maybe it can just be ignored if not needed.
 # TODO: not sure we should make this part of the api, as not all games have respawns
 func get_next_spawn_location(player_name: String):
-	if _match_handler:
-		return _match_handler.get_spawn_point(player_name)
+	if _match_action_handler:
+		return _match_action_handler.get_spawn_point(player_name)
 
 func exit_gameplay_load_main_menu():
 	get_multiplayer_manager().exit_gameplay_load_main_menu()
@@ -105,8 +107,8 @@ func set_network_events_manager(network_events_manager):
 func get_network_events_manager():
 	return _network_events_manager
 
-func set_match_manager(match_handler):
-	_match_handler = match_handler
+func set_match_manager(match_action_handler):
+	_match_action_handler = match_action_handler
 	
 func get_match_manager():
-	return _match_handler
+	return _match_action_handler

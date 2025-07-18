@@ -11,7 +11,7 @@ const ship_types: Array[String] = ["default", "ship2"]
 @export var selected_ship: String = ship_types[0]
 
 var _player_dead = false
-var _health = 5
+var _health = 5 
 var _dead_timer = 0
 var _next_respawn_transform = Transform2D(0, Vector2(-10, -10))
 
@@ -40,7 +40,10 @@ func _physics_process(_delta: float) -> void:
 		_player_dead = false
 		reset_health()
 		visible = true
-		BADMP.player_respawned(name)
+		
+		# This demonstrates where we don't need a custom MatchActionInfo, just
+		# set the name of the action to perform
+		BADMP.perform_match_action(BADMatchActionInfo.new(&"PlayerRespawnedAction"))
 
 	if _player_dead:
 		if _dead_timer < 1:
@@ -56,12 +59,16 @@ func _register_hit(from: Player):
 	if is_multiplayer_authority():
 		if _health > 0:
 			_health -= 1
-			print("health %s" % _health)
+			print("Player %s health %s" % [name, _health])
 		
 		if _health <= 0 and not _player_dead:
 			print("Marking player dead...")
-			# TODO: I think this can be like action based, where we uses "keys" to identify what the action was, maybe even have a action class
-			BADMP.player_killed(name)
+			
+			# This demonstrates a custom MatchActionInfo class that passes 
+			# required data to perform the match action - in this case the player name
+			var action_info = PlayerKilledAction.PlayerKilledActionInfo.new(name)
+			BADMP.perform_match_action(action_info)
+			
 			_player_dead = true
 			visible = false
 			velocity = Vector2.ZERO

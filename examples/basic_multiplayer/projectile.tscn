@@ -13,6 +13,7 @@ _projectile_sprite = NodePath("AnimatedSprite2D")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.504854, 0.504854)
 sprite_frames = ExtResource("2_c5c4w")
+autoplay = "default"
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

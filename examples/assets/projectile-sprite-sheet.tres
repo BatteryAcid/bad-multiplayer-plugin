@@ -1,6 +1,7 @@
-[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://csr4bgb8ovjt4"]
+[gd_resource type="SpriteFrames" load_steps=14 format=3 uid="uid://csr4bgb8ovjt4"]
 
 [ext_resource type="Texture2D" uid="uid://nywwqhr03c56" path="res://examples/assets/projectile-sheet.png" id="1_ypx7e"]
+[ext_resource type="Texture2D" uid="uid://suor4g14rygi" path="res://examples/assets/explosion-sheet.png" id="2_5xk5c"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5xk5c"]
 atlas = ExtResource("1_ypx7e")
@@ -17,6 +18,34 @@ region = Rect2(452, 0, 226, 103)
 [sub_resource type="AtlasTexture" id="AtlasTexture_8nojy"]
 atlas = ExtResource("1_ypx7e")
 region = Rect2(678, 0, 226, 103)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7aa04"]
+atlas = ExtResource("2_5xk5c")
+region = Rect2(0, 0, 400, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oap5a"]
+atlas = ExtResource("2_5xk5c")
+region = Rect2(400, 0, 400, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m6lef"]
+atlas = ExtResource("2_5xk5c")
+region = Rect2(800, 0, 400, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_660ey"]
+atlas = ExtResource("2_5xk5c")
+region = Rect2(1200, 0, 400, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6prme"]
+atlas = ExtResource("2_5xk5c")
+region = Rect2(1600, 0, 400, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ouudg"]
+atlas = ExtResource("2_5xk5c")
+region = Rect2(2000, 0, 400, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yknuw"]
+atlas = ExtResource("2_5xk5c")
+region = Rect2(2400, 0, 400, 300)
 
 [resource]
 animations = [{
@@ -35,5 +64,31 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7aa04")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oap5a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m6lef")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_660ey")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6prme")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ouudg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yknuw")
+}],
+"loop": true,
+"name": &"explode",
 "speed": 5.0
 }]

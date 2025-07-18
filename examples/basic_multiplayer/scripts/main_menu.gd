@@ -6,9 +6,12 @@ signal host_options_cancelled
 signal join_options_submitted
 signal join_options_cancelled
 
+@export_category("Buttons")
+@export var host_options_button: Button
+@export var join_options_button: Button
+
+@export_category("Options Panels")
 @export var main_options_panel: Panel
-@export var host_btn: Button
-@export var join_btn: Button
 @export var host_options_panel_scene: PackedScene
 @export var join_options_panel_scene: PackedScene
 
@@ -17,7 +20,7 @@ var _join_options_panel
 
 func _ready() -> void:
 	# Inform BADMP of the main game scenes
-	BADMP.add_scene(BADSceneManager.MAIN, "res://examples/basic_multiplayer/main.tscn")
+	BADMP.add_scene(BADSceneManager.MAIN, "res://examples/basic_multiplayer/main_menu.tscn")
 	BADMP.add_scene(BADSceneManager.GAME, "res://examples/basic_multiplayer/game.tscn")
 	BADMP.add_scene(BADSceneManager.LOADING, "res://examples/basic_multiplayer/loading.tscn")
 
@@ -32,10 +35,10 @@ func _ready() -> void:
 		join_options_submitted.connect(_on_join_options_submitted)
 		join_options_cancelled.connect(_on_join_options_cancelled)
 		
-		host_btn.grab_focus()
+		host_options_button.grab_focus()
 
 func _on_host_game_pressed():
-	print("host game hit...")
+	print("Host game hit...")
 	if host_options_panel_scene:
 		main_options_panel.visible = false
 		_host_options_panel = host_options_panel_scene.instantiate()
@@ -48,29 +51,29 @@ func _on_join_game_pressed():
 		_join_options_panel = join_options_panel_scene.instantiate()
 		add_child(_join_options_panel)
 
-func _on_host_options_submitted(options: BADNetworkConnectionConfigs):
-	print("on host options submitted")
-	BADMP.host_game(options)
+func _on_host_options_submitted(configs_host: BADNetworkConnectionConfigs):
+	print("On host configs submitted")
+	BADMP.host_game(configs_host)
 
 func _on_host_options_cancelled():
-	print("on host options cancelled")
+	print("On host configs cancelled")
 	if _host_options_panel:
 		_host_options_panel.queue_free()
 	
 	main_options_panel.visible = true
-	host_btn.grab_focus()
-	
-func _on_join_options_submitted(options: BADNetworkConnectionConfigs):
-	print("on join options submitted")
-	BADMP.join_game(options)
+	host_options_button.grab_focus()
+
+func _on_join_options_submitted(configs_join: BADNetworkConnectionConfigs):
+	print("On join configs submitted")
+	BADMP.join_game(configs_join)
 
 func _on_join_options_cancelled():
-	print("on join options cancelled")
+	print("On join configs cancelled")
 	if _join_options_panel:
 		_join_options_panel.queue_free()
 	
 	main_options_panel.visible = true
-	host_btn.grab_focus()
+	host_options_button.grab_focus()
 
 func _on_exit_game_pressed() -> void:
 	get_tree().quit()

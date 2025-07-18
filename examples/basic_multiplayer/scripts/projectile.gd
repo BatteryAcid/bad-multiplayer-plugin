@@ -34,7 +34,7 @@ func _on_body_entered(body):
 		return
 	
 	if body is Player:
-		print("Player %s hit! " % body.name)
+		# print("Player %s hit! " % body.name)
 		if fired_by != null:
 			body._register_hit(fired_by)
 	
@@ -42,8 +42,8 @@ func _on_body_entered(body):
 	_impact_on_hit()
 
 func _impact_on_hit():
-	print("Impact on hit")
+	# print("Impact on hit")
 	speed = 0 # stop on impact
-	
-	#await get_tree().create_timer(1).timeout # used this to allow for explosion animation, not supported atm
+	_projectile_sprite.animation = "explode"
+	await get_tree().create_timer(1).timeout
 	queue_free()
