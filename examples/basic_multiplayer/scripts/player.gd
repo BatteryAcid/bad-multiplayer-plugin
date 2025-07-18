@@ -11,7 +11,7 @@ const ship_types: Array[String] = ["default", "ship2"]
 @export var selected_ship: String = ship_types[0]
 
 var _player_dead = false
-var _health = 5
+var _health = 5 
 var _dead_timer = 0
 var _next_respawn_transform = Transform2D(0, Vector2(-10, -10))
 

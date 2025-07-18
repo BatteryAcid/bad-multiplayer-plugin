@@ -32,7 +32,6 @@ func perform(match_action_info: BADMatchActionInfo):
 
 		_match_handler.match_info.visible = true
 
-
 ## Used to hold information specific to containing-parent action
 class PlayerKilledActionInfo extends BADMatchActionInfo:
 
