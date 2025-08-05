@@ -28,9 +28,9 @@ Minimizes networking setup for your Godot multiplayer game.
 
 - [Add this plugin to your Godot multiplayer project](https://godotengine.org/asset-library/asset/4123)
 
-# Usage Instructions
+# Getting Started
 
-- https://github.com/BatteryAcid/bad-multiplayer-plugin/wiki/Usage-Instructions
+- https://github.com/BatteryAcid/bad-multiplayer-plugin/wiki/Getting-Started
 
 # Roadmap
 
