@@ -1,5 +1,5 @@
 extends Node
-## [Autoloader]
+## [Autoload]
 ## Coordinates network connection signals, shows/hides loading and game scenes.
 ## Also checks for enabled external networking options like Noray.
 

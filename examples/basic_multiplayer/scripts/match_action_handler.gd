@@ -1,5 +1,5 @@
-extends BADMatchHandler
-## Example usage of (overriding) BADMatchHandler. Override functions to suit
+extends BADMatchActionHandler
+## Example usage of (overriding) BADMatchActionHandler. Override functions to suit
 ## the needs of your game. Also good place to connect in game menu signals.
 
 # NOTE: Be careful if you need to override the _ready func, be sure to call to the super of it first!

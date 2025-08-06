@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=3 uid="uid://bcys2xxedving"]
+
+[ext_resource type="Texture2D" uid="uid://cbs7qlo0cign3" path="res://examples/assets/menu-bg.jpg" id="1_4oqta"]
+[ext_resource type="Script" uid="uid://b3a2uq340s8pi" path="res://examples/getting_started/scripts/main_menu.gd" id="1_pf0hb"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pf0hb")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_4oqta")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 120.0
+offset_right = 296.0
+offset_bottom = 160.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_right = 285.0
+offset_bottom = 175.0
+
+[node name="HostGame" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 56
+text = "Host"
+
+[node name="JoinGame" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 56
+text = "Join Game"
+
+[connection signal="pressed" from="Panel/VBoxContainer/HostGame" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/JoinGame" to="." method="_on_join_game_pressed"]

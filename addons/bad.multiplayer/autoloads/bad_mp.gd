@@ -1,5 +1,5 @@
 extends Node
-## [Autoloader]
+## [Autoload]
 ## Contains the preferred way to access the BAD Multiplayer feature suite. You 
 ## can override the individual managers if necessary.
 
