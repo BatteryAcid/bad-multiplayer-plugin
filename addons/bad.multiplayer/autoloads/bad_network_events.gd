@@ -1,5 +1,5 @@
 extends Node
-## [Autoloader]
+## [Autoload]
 ## Listens for network events and rebroadcasts them in effort to normalize these
 ## events regardless of network type.
 ## 

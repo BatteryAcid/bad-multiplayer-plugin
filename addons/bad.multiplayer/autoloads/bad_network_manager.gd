@@ -1,5 +1,5 @@
 extends Node
-## [Autoloader]
+## [Autoload]
 ## Manages the active network
 
 signal server_peer_created

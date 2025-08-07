@@ -7,17 +7,17 @@ Minimizes networking setup for your Godot multiplayer game.
 
 [![License](https://img.shields.io/github/license/BatteryAcid/bad-multiplayer-plugin)](https://github.com/BatteryAcid/bad-multiplayer-plugin/blob/main/LICENSE.md)
 [![GitHub Release](https://img.shields.io/github/v/release/BatteryAcid/bad-multiplayer-plugin)](https://github.com/BatteryAcid/bad-multiplayer-plugin/releases)
-[![Documentation](https://img.shields.io/badge/Docs-github.io-blue)](https://github.com/BatteryAcid/bad-multiplayer-plugin/wiki/Usage-Instructions)
+[![Documentation](https://img.shields.io/badge/Docs-github.io-blue)](https://github.com/BatteryAcid/bad-multiplayer-plugin/wiki/Getting-Started)
 [![Discord](https://img.shields.io/discord/1253434107656933447?logo=discord&label=Discord)](https://discord.gg/SFFW32FUgm)
 
 
 # Features
-- Shared entry point regardless of network type.
+- Shared entry point for hosting or joining a game, regardless of network type.
 - Currently designed for match based multiplayer games, but is highly configurable.
 - Networking lifecycle signals and menu actions are exposed through a simple set of functions.
+- Streamlines the creation of custom match-meta actions like updating menus, scores, state, etc
 - Facilitates common match actions like readying a player, spawn point retrieval, respawning, and player reset.
 - Build your menus around the networks you want to support.
-- Connect the buttons to the provided host and join game functions.
 
 ## Supported networks
 - ENet (local and dedicated server)
@@ -31,6 +31,13 @@ Minimizes networking setup for your Godot multiplayer game.
 # Getting Started
 
 - https://github.com/BatteryAcid/bad-multiplayer-plugin/wiki/Getting-Started
+
+# Examples
+
+Currently there are two example implementations in the [example folder](https://github.com/BatteryAcid/bad-multiplayer-plugin/tree/main/examples):  
+- [getting_started](https://github.com/BatteryAcid/bad-multiplayer-plugin/tree/main/examples/getting_started): simpliest demonstration of multiplayer functionality. Start here!
+- [basic_multiplayer](https://github.com/BatteryAcid/bad-multiplayer-plugin/tree/main/examples/basic_multiplayer): more advanced example that includes network selection and the use of BADMatchActions. 
+> To run them, open the `main_menu` scene of the respecitive example, and hit the `Run Current Scene` icon.
 
 # Roadmap
 

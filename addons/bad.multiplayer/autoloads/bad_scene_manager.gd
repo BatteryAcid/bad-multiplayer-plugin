@@ -3,7 +3,7 @@ extends Node
 ## loading, and game scenes by default. Add more game scenes with 
 ## [method add_enabled_game_scene].[br][br]
 ## 
-## Autoloader BADSceneManager
+## Autoload BADSceneManager
 ##
 
 ## Default scenes

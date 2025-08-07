@@ -1,9 +1,9 @@
 @tool
 @icon("res://addons/bad.multiplayer/icons/match-action-handler-icon.svg")
-class_name BADMatchHandler
+class_name BADMatchActionHandler
 extends Node
 ## Attach this script to a Node in your game scene, to aid in spawning players
-## based off network events. To be used along side a [MultiplayerSpawner].[br]
+## based off network events. To be used along side a [MultiplayerSpawner].
 ##
 ## Also handles custom "actions" you may want to perform during a match, such as
 ## player killed, player respawned, etc. Nest BADMatchAction implementations
@@ -15,11 +15,11 @@ extends Node
 ##  - Tracks a list of active players[br]
 ##  - Sets the name to the [i]network_id[/i] of the peer[br][br]
 ## 
-## If you want to use most of the default functionality, it's likely at a 
-## minimum, you'll want to override the [method ready_player] function to set 
-## custom player properties (player name, spawn location, etc) for when your 
-## player spawns in game. Otherwise, override any mix of functions. Also good 
-## place to connect in game menu signals.
+## You must override the [method get_spawn_point] and return whatever object is
+## needed to set the spawn location for your player.[br]
+##
+## @tutorial: https://github.com/BatteryAcid/bad-multiplayer-plugin/wiki/BADMatchActionHandler
+##
 
 const GAME_PLAY_STATE = "game_play"
 const GAME_OVER_STATE = "game_over"
@@ -40,7 +40,7 @@ func register_match_manager():
 	BADMP.set_match_manager(self)
 	
 func _ready() -> void:
-	print("BADMatchHandler Ready!")
+	print("BADMatchActionHandler Ready!")
 
 	if BADMP.get_network_manager().is_host:
 		# Only needed on host peer
