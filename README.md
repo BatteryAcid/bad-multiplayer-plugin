@@ -18,7 +18,6 @@ Minimizes networking setup for your Godot multiplayer game.
 - Streamlines the creation of custom match-meta actions like updating menus, scores, state, etc
 - Facilitates common match actions like readying a player, spawn point retrieval, respawning, and player reset.
 - Build your menus around the networks you want to support.
-- Connect buttons signals to the provided host and join game functions.
 
 ## Supported networks
 - ENet (local and dedicated server)
